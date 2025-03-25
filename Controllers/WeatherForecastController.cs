@@ -1,3 +1,4 @@
+using BrabantCareWebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BrabantCareWebApi.Controllers;

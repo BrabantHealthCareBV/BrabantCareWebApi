@@ -1,25 +1,49 @@
-var builder = WebApplication.CreateBuilder(args);
+using BrabantCareWebApi;
+using Microsoft.AspNetCore.Identity;
+using Dapper;
+using Microsoft.AspNetCore.Authentication;
 
+var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddTransient<IAuthenticationService, AspNetIdentityAuthenticationService>();
+
+builder.Services.AddAuthorization();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddOpenApi();
+
+var sqlConnectionString = builder.Configuration.GetValue<string>("SqlConnectionString");
+//var sqlConnectionString = builder.Configuration["SqlConnectionString"];
+
+builder.Services
+    .AddIdentityApiEndpoints<IdentityUser>()
+    .AddDapperStores(options =>
+    {
+        options.ConnectionString = sqlConnectionString;
+    });
+
+var sqlConnectionStringFound = !string.IsNullOrWhiteSpace(sqlConnectionString);
 
 var app = builder.Build();
+
+app.MapGet("/", () => $"The API is up ??. Connection string found: {(sqlConnectionStringFound ? "?" : "?")}");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.MapOpenApi();
 }
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapControllers();
+app.MapGroup("/account")
+.MapIdentityApi<IdentityUser>();
+
+app.MapControllers()
+    .RequireAuthorization();
 
 app.Run();

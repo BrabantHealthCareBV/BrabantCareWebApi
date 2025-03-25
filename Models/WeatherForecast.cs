@@ -1,4 +1,4 @@
-namespace BrabantCareWebApi
+namespace BrabantCareWebApi.Models
 {
     public class WeatherForecast
     {
