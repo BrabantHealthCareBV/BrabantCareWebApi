@@ -48,6 +48,7 @@ namespace BrabantCareWebApi.Pages.Patients
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid) return Page();
+            newPatient.ID = Guid.NewGuid();
             await _patientRepository.InsertAsync(newPatient);
             return RedirectToPage("Index");
         }

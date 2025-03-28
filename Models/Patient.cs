@@ -2,11 +2,11 @@ namespace BrabantCareWebApi.Models
 {
     public class Patient
     {
-        public Guid ID;
-        public string FirstName;
-        public string LastName;
-        public Guid GuardianID;
-        public Guid TreatmentPlanID;
-        public Guid? DoctorID;
+        public Guid ID { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public Guid GuardianID { get; set; }
+        public Guid TreatmentPlanID { get; set; }
+        public Guid? DoctorID { get; set; }
     }
 }
