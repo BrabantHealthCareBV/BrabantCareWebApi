@@ -24,22 +24,19 @@
         <input asp-for="newPatient.NextAppointmentDate" class="form-control" type="datetime-local" required />
     </div>
 
-    <!-- Guardian Dropdown -->
     <div class="mb-3">
         <label class="form-label">Guardian</label>
-        <select asp-for="newPatient.GuardianID" class="form-control" asp-items="@(new SelectList(Model.Guardians, "ID", "FullName"))"></select>
+        <select asp-for="newPatient.GuardianID" class="form-control" asp-items="@(new SelectList(Model.Guardians, "ID", "FirstName"))"></select>
     </div>
 
-    <!-- Treatment Plan Dropdown -->
     <div class="mb-3">
         <label class="form-label">Treatment Plan</label>
         <select asp-for="newPatient.TreatmentPlanID" class="form-control" asp-items="@(new SelectList(Model.TreatmentPlans, "ID", "Name"))"></select>
     </div>
 
-    <!-- Doctor Dropdown -->
     <div class="mb-3">
         <label class="form-label">Doctor</label>
-        <select asp-for="newPatient.DoctorID" class="form-control" asp-items="@(new SelectList(Model.Doctors, "ID", "FullName"))"></select>
+        <select asp-for="newPatient.DoctorID" class="form-control" asp-items="@(new SelectList(Model.Doctors, "ID", "Name"))"></select>
     </div>
 
     <button type="submit" class="btn btn-primary">Create Patient</button>

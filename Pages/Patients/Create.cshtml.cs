@@ -38,8 +38,17 @@ namespace BrabantCareWebApi.Pages.Patients
             Guardians = (List<Guardian>)await _guardianRepository.ReadAsync();
             TreatmentPlans = (List<TreatmentPlan>)await _treatmentPlanRepository.ReadAsync();
             Doctors = (List<Doctor>)await _doctorRepository.ReadAsync();
+
+            // Add checks to ensure they are not null or empty
+            if (Guardians == null || TreatmentPlans == null || Doctors == null)
+            {
+                // Log or throw an exception here
+                return Page(); // Or some error page if needed
+            }
+
             return Page();
         }
+
 
         public async Task<IActionResult> OnPostAsync()
         {
