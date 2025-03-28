@@ -34,7 +34,7 @@ namespace BrabantCareWebApi.Pages.Patients
 
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            // Fetch newPatient details and related dropdown lists
+            // Fetch patient details and related dropdown lists
             patient = await _patientRepository.ReadAsync(id);
             if (patient == null)
             {
