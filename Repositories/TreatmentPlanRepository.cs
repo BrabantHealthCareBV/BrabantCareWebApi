@@ -1,6 +1,8 @@
 ﻿using BrabantCareWebApi.Models;
 using Dapper;
 using Microsoft.Data.SqlClient;
+using ProjectMap.WebApi.Repositories;
+using System.Numerics;
 
 namespace BrabantCareWebApi.Repositories
 {
@@ -8,18 +10,30 @@ namespace BrabantCareWebApi.Repositories
     {
         private readonly string sqlConnectionString;
 
-        public TreatmentPlanRepository(string sqlConnectionString)
+        private readonly ILogger<TreatmentPlanRepository> _logger;
+        public TreatmentPlanRepository(string sqlConnectionString, ILogger<TreatmentPlanRepository> logger)
         {
             this.sqlConnectionString = sqlConnectionString;
+            _logger = logger;
         }
 
         public async Task<TreatmentPlan> InsertAsync(TreatmentPlan treatmentPlan)
         {
-            using (var sqlConnection = new SqlConnection(sqlConnectionString))
+            try
             {
-                await sqlConnection.ExecuteAsync(
-                    "INSERT INTO [TreatmentPlans] (Id, Name) VALUES (@Id, @Name)", treatmentPlan);
-                return treatmentPlan;
+                using (var sqlConnection = new SqlConnection(sqlConnectionString))
+                {
+                    Console.WriteLine($"Id: {treatmentPlan.ID}, Name: {treatmentPlan.Name}");
+
+                    await sqlConnection.ExecuteAsync(
+                        "INSERT INTO [TreatmentPlans] (Id, Name) VALUES (@Id, @Name)", treatmentPlan);
+                    return treatmentPlan;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while inserting treatmentplan: {treatmentPlanName}", treatmentPlan.Name);
+                throw;
             }
         }
 

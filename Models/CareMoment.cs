@@ -1,13 +1,11 @@
-
-
 namespace BrabantCareWebApi.Models
 {
     public class CareMoment
     {
-        public Guid ID;
-        public string Name;
-        public string Url;
-        public byte[] Image;
-        public int? DurationInMinutes;
+        public Guid ID { get; set; }
+        public string Name { get; set; }
+        public string Url { get; set; }
+        public byte[]? Image { get; set; }
+        public int? DurationInMinutes { get; set; }
     }
 }

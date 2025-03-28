@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using BrabantCareWebApi.Models;
 using BrabantCareWebApi.Repositories;
 using ProjectMap.WebApi.Repositories;
+using System.ComponentModel.DataAnnotations;
 
 namespace BrabantCareWebApi.Pages.Doctors
 {
@@ -33,13 +34,15 @@ namespace BrabantCareWebApi.Pages.Doctors
 
             if (!ModelState.IsValid)
             {
-                _logger.LogWarning("ModelState is invalid");
-                return Page();  // Return to the page if model state is invalid
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine(error.ErrorMessage); // Log errors
+                }
+                return Page(); // Return the form with validation errors
             }
-
             try
             {
-                // Call the Insert method in the repository
+                newDoctor.ID = Guid.NewGuid();
                 await _doctorRepository.InsertAsync(newDoctor);
                 _logger.LogInformation($"Doctor {newDoctor.Name} successfully created.");
 
@@ -51,10 +54,10 @@ namespace BrabantCareWebApi.Pages.Doctors
                 return Page();  // Return to the page if there's an error
             }
         }
-        public void OnPost(Doctor doctor)
-        {
-            _logger.LogInformation("post called");
-        }
+        //public void OnPost(Doctor doctor)
+        //{
+        //    _logger.LogInformation("post called");
+        //}
 
     }
 }

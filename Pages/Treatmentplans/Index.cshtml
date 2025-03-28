@@ -1,0 +1,30 @@
+﻿@page
+@model BrabantCareWebApi.Pages.TreatmentPlans.IndexModel
+@{
+    Layout = "/Pages/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Treatment Plans";
+}
+
+<h2>Treatment Plans</h2>
+<a class="btn btn-primary mb-3" asp-page="Create">Add Treatment Plan</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var treatmentPlan in Model.TreatmentPlans)
+        {
+            <tr>
+                <td>@treatmentPlan.Name</td>
+                <td>
+                    <a class="btn btn-warning" asp-page="Edit" asp-route-id="@treatmentPlan.ID">Edit</a>
+                    <a class="btn btn-danger" asp-page="Delete" asp-route-id="@treatmentPlan.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,34 @@
+﻿@page
+@model BrabantCareWebApi.Pages.CareMoments.IndexModel
+@{
+    Layout = "/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Care Moments</h2>
+
+<a asp-page="Create" class="btn btn-primary mb-3">Create New</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>URL</th>
+            <th>Duration (min)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var moment in Model.CareMoments)
+        {
+                <tr>
+                    <td>@moment.Name</td>
+                    <td>@moment.Url</td>
+                    <td>@moment.DurationInMinutes</td>
+                    <td>
+                        <a asp-page="Edit" asp-route-id="@moment.ID" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-page="Delete" asp-route-id="@moment.ID" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+        }
+    </tbody>
+</table>

@@ -2,10 +2,10 @@ namespace BrabantCareWebApi.Models
 {
     public class TreatmentPlan
     {
-        public Guid ID;
-        public string Name;
-        public List<Guid> PatientIDs;
-        public List<Guid> CareMomentIDs;
+        public Guid ID { get; set; }
+        public string Name { get; set; }
+        public List<Guid>? PatientIDs { get; set; }
+        public List<Guid>? CareMomentIDs { get; set; }
 
     }
 }
