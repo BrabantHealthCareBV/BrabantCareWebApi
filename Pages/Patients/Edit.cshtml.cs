@@ -1,8 +1,8 @@
-using BrabantCareWebApi.Models;
-using BrabantCareWebApi.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using BrabantCareWebApi.Models;
+using BrabantCareWebApi.Repositories;
+using System.Threading.Tasks;
 using ProjectMap.WebApi.Repositories;
 
 namespace BrabantCareWebApi.Pages.Patients
@@ -14,15 +14,10 @@ namespace BrabantCareWebApi.Pages.Patients
         private readonly TreatmentPlanRepository _treatmentPlanRepository;
         private readonly DoctorRepository _doctorRepository;
 
-        [BindProperty]
-        public Patient ExistingPatient { get; set; } = new();
-
-        public List<SelectListItem> Guardians { get; set; } = new();
-        public List<SelectListItem> TreatmentPlans { get; set; } = new();
-        public List<SelectListItem> Doctors { get; set; } = new();
-
-        public EditModel(PatientRepository patientRepository, GuardianRepository guardianRepository,
-                         TreatmentPlanRepository treatmentPlanRepository, DoctorRepository doctorRepository)
+        public EditModel(PatientRepository patientRepository,
+            GuardianRepository guardianRepository,
+            TreatmentPlanRepository treatmentPlanRepository,
+            DoctorRepository doctorRepository)
         {
             _patientRepository = patientRepository;
             _guardianRepository = guardianRepository;
@@ -30,32 +25,36 @@ namespace BrabantCareWebApi.Pages.Patients
             _doctorRepository = doctorRepository;
         }
 
+        [BindProperty]
+        public Patient patient { get; set; }
+
+        public List<Guardian> Guardians { get; set; }
+        public List<TreatmentPlan> TreatmentPlans { get; set; }
+        public List<Doctor> Doctors { get; set; }
+
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            ExistingPatient = await _patientRepository.ReadAsync(id);
-            if (ExistingPatient == null) return NotFound();
+            // Fetch newPatient details and related dropdown lists
+            patient = await _patientRepository.ReadAsync(id);
+            if (patient == null)
+            {
+                return NotFound();
+            }
 
-            Guardians = (await _guardianRepository.ReadAsync())
-                .Select(g => new SelectListItem { Value = g.ID.ToString(), Text = $"{g.FirstName} {g.LastName}" })
-                .ToList();
-
-            TreatmentPlans = (await _treatmentPlanRepository.ReadAsync())
-                .Select(tp => new SelectListItem { Value = tp.ID.ToString(), Text = tp.Name })
-                .ToList();
-
-            Doctors = (await _doctorRepository.ReadAsync())
-                .Select(d => new SelectListItem { Value = d.ID.ToString(), Text = d.Name })
-                .ToList();
+            Guardians = (List<Guardian>)await _guardianRepository.ReadAsync();
+            TreatmentPlans = (List<TreatmentPlan>)await _treatmentPlanRepository.ReadAsync();
+            Doctors = (List<Doctor>)await _doctorRepository.ReadAsync();
 
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid) return Page();
+            if (!ModelState.IsValid)
+                return Page();
 
-            await _patientRepository.UpdateAsync(ExistingPatient);
-            return RedirectToPage("Index");
+            await _patientRepository.UpdateAsync(patient);
+            return RedirectToPage("/Patients/Index");
         }
     }
 }

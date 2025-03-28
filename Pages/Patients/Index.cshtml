@@ -4,14 +4,15 @@
     Layout = "/Pages/Shared/_Layout.cshtml";
 }
 
-<h2>Patients</h2>
-<a asp-page="Create" class="btn btn-primary">Add Patient</a>
+<h2>Patient List</h2>
 
 <table class="table">
     <thead>
         <tr>
             <th>First Name</th>
             <th>Last Name</th>
+            <th>Birthdate</th>
+            <th>Next Appointment</th>
             <th>Guardian</th>
             <th>Treatment Plan</th>
             <th>Doctor</th>
@@ -24,12 +25,14 @@
             <tr>
                 <td>@patient.FirstName</td>
                 <td>@patient.LastName</td>
-                <td>@patient.GuardianID</td>
-                <td>@patient.TreatmentPlanID</td>
-                <td>@patient.DoctorID</td>
+                <td>@patient.Birthdate</td>
+                <td>@patient.NextAppointmentDate</td>
+                <td>@Model.Guardians.FirstOrDefault(g => g.ID == patient.GuardianID)?.FirstName</td>
+                <td>@Model.TreatmentPlans.FirstOrDefault(t => t.ID == patient.TreatmentPlanID)?.Name</td>
+                <td>@Model.Doctors.FirstOrDefault(d => d.ID == patient.DoctorID)?.Name</td>
                 <td>
-                    <a asp-page="Edit" asp-route-id="@patient.ID" class="btn btn-warning">Edit</a>
-                    <a asp-page="Delete" asp-route-id="@patient.ID" class="btn btn-danger">Delete</a>
+                    <a href="/Patients/Edit?id=@patient.ID">Edit</a> |
+                    <a href="/Patients/Delete?id=@patient.ID">Delete</a>
                 </td>
             </tr>
         }
