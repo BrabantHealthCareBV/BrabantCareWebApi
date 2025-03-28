@@ -2,9 +2,9 @@ namespace BrabantCareWebApi.Models
 {
     public class Guardian
     {
-        public Guid ID;
-        public string FirstName;
-        public string LastName;
-        public List<Guid> PatientIDs;
+        public Guid ID { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public List<Guid> PatientIDs { get; set; }
     }
 }
