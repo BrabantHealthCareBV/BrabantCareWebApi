@@ -1,0 +1,19 @@
+﻿@page
+@model BrabantCareWebApi.Pages.Doctors.CreateModel
+@{
+    Layout = "/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Create New Doctor</h2>
+
+<form method="post" asp-page="/Doctors/Create">
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input asp-for="newDoctor.Name" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Specialization</label>
+        <input asp-for="newDoctor.Specialization" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-success">Create</button>
+</form>
