@@ -52,6 +52,7 @@ namespace BrabantCareWebApi.Pages.Patients
         {
             if (!ModelState.IsValid)
                 return Page();
+            Console.WriteLine($"Updating Patient: {patient.ID} - {patient.FirstName} {patient.LastName}, Birthdate: {patient.Birthdate}");
 
             await _patientRepository.UpdateAsync(patient);
             return RedirectToPage("/Patients/Index");

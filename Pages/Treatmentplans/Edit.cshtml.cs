@@ -36,6 +36,7 @@ namespace BrabantCareWebApi.Pages.TreatmentPlans
         {
             if (!ModelState.IsValid)
                 return Page();
+            Console.WriteLine($"Updating Treatmentplan: {TreatmentPlan.ID} - {TreatmentPlan.Name} ");
 
             await _treatmentPlanRepository.UpdateAsync(TreatmentPlan);
             return RedirectToPage("Index");
