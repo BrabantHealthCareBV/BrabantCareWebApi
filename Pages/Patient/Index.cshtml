@@ -24,12 +24,12 @@
             <tr>
                 <td>@patient.FirstName</td>
                 <td>@patient.LastName</td>
-                <td>@patient.GuardianName</td>
-                <td>@patient.TreatmentPlanName</td>
-                <td>@patient.DoctorName</td>
+                <td>@patient.GuardianID</td>
+                <td>@patient.TreatmentPlanID</td>
+                <td>@patient.DoctorID</td>
                 <td>
-                    <a asp-page="Edit" asp-route-id="@patient.Id" class="btn btn-warning">Edit</a>
-                    <a asp-page="Delete" asp-route-id="@patient.Id" class="btn btn-danger">Delete</a>
+                    <a asp-page="Edit" asp-route-id="@patient.ID" class="btn btn-warning">Edit</a>
+                    <a asp-page="Delete" asp-route-id="@patient.ID" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         }

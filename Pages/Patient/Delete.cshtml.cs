@@ -2,6 +2,8 @@ using BrabantCareWebApi.Models;
 using BrabantCareWebApi.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
+using System.Threading.Tasks;
 
 namespace BrabantCareWebApi.Pages.Patients
 {
@@ -10,23 +12,27 @@ namespace BrabantCareWebApi.Pages.Patients
         private readonly PatientRepository _patientRepository;
 
         [BindProperty]
-        public PatientViewModel ExistingPatient { get; set; } = new();
+        public Patient ExistingPatient { get; set; } = new();
 
         public DeleteModel(PatientRepository patientRepository)
         {
             _patientRepository = patientRepository;
         }
 
-        public async Task<IActionResult> OnGetAsync(int id)
+        public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            ExistingPatient = await _patientRepository.GetPatientWithDetailsByIdAsync(id);
+            ExistingPatient = await _patientRepository.ReadAsync(id);
             if (ExistingPatient == null) return NotFound();
+
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(Guid id)
         {
-            await _patientRepository.DeleteAsync(ExistingPatient.Id);
+            var patient = await _patientRepository.ReadAsync(id);
+            if (patient == null) return NotFound();
+
+            await _patientRepository.DeleteAsync(id);
             return RedirectToPage("Index");
         }
     }

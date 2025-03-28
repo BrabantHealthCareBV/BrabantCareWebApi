@@ -7,7 +7,7 @@ namespace BrabantCareWebApi.Pages.Patients
     public class IndexModel : PageModel
     {
         private readonly PatientRepository _patientRepository;
-        public List<PatientViewModel> Patients { get; set; } = new();
+        public IEnumerable<Patient> Patients { get; set; }
 
         public IndexModel(PatientRepository patientRepository)
         {
@@ -16,7 +16,7 @@ namespace BrabantCareWebApi.Pages.Patients
 
         public async Task OnGetAsync()
         {
-            Patients = await _patientRepository.GetPatientsWithDetailsAsync();
+            Patients = await _patientRepository.ReadAsync();
         }
     }
 }

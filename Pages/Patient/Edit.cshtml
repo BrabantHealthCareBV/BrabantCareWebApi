@@ -7,7 +7,7 @@
 <h2>Edit Patient</h2>
 
 <form method="post">
-    <input type="hidden" asp-for="@Model.ExistingPatient.Id" />
+    <input type="hidden" asp-for="@Model.ExistingPatient.ID" />
 
     <div class="mb-3">
         <label class="form-label">First Name</label>
@@ -19,19 +19,19 @@
     </div>
     <div class="mb-3">
         <label class="form-label">Guardian</label>
-        <select asp-for="@Model.ExistingPatient.GuardianId" asp-items="Model.Guardians" class="form-control" required>
+        <select asp-for="@Model.ExistingPatient.GuardianID" asp-items="Model.Guardians" class="form-control" required>
             <option value="">Select a Guardian</option>
         </select>
     </div>
     <div class="mb-3">
         <label class="form-label">Treatment Plan</label>
-        <select asp-for="@Model.ExistingPatient.TreatmentPlanId" asp-items="Model.TreatmentPlans" class="form-control" required>
+        <select asp-for="@Model.ExistingPatient.TreatmentPlanID" asp-items="Model.TreatmentPlans" class="form-control" required>
             <option value="">Select a Treatment Plan</option>
         </select>
     </div>
     <div class="mb-3">
         <label class="form-label">Doctor</label>
-        <select asp-for="@Model.ExistingPatient.DoctorId" asp-items="Model.Doctors" class="form-control" required>
+        <select asp-for="@Model.ExistingPatient.DoctorID" asp-items="Model.Doctors" class="form-control" required>
             <option value="">Select a Doctor</option>
         </select>
     </div>
