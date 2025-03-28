@@ -1,0 +1,37 @@
+﻿@page
+@model BrabantCareWebApi.Pages.Patients.CreateModel
+@{
+    Layout = "/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Create New Patient</h2>
+
+<form method="post">
+    <div class="mb-3">
+        <label class="form-label">First Name</label>
+        <input asp-for="@Model.newPatient.FirstName" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Last Name</label>
+        <input asp-for="@Model.newPatient.LastName" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Guardian</label>
+        <select asp-for="@Model.newPatient.GuardianID" asp-items="Model.Guardians" class="form-control" required>
+            <option value="">Select a Guardian</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Treatment Plan</label>
+        <select asp-for="@Model.newPatient.TreatmentPlanID" asp-items="Model.TreatmentPlans" class="form-control" required>
+            <option value="">Select a Treatment Plan</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Doctor</label>
+        <select asp-for="@Model.newPatient.DoctorID" asp-items="Model.Doctors" class="form-control" required>
+            <option value="">Select a Doctor</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">Create</button>
+</form>

@@ -1,0 +1,37 @@
+﻿@page
+@model BrabantCareWebApi.Pages.Patients.IndexModel
+@{
+    Layout = "/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Patients</h2>
+<a asp-page="Create" class="btn btn-primary">Add Patient</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Guardian</th>
+            <th>Treatment Plan</th>
+            <th>Doctor</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var patient in Model.Patients)
+        {
+            <tr>
+                <td>@patient.FirstName</td>
+                <td>@patient.LastName</td>
+                <td>@patient.GuardianName</td>
+                <td>@patient.TreatmentPlanName</td>
+                <td>@patient.DoctorName</td>
+                <td>
+                    <a asp-page="Edit" asp-route-id="@patient.Id" class="btn btn-warning">Edit</a>
+                    <a asp-page="Delete" asp-route-id="@patient.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

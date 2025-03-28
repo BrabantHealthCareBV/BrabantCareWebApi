@@ -5,6 +5,6 @@ namespace BrabantCareWebApi.Models
         public Guid ID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public List<Guid> PatientIDs { get; set; }
+        public List<Guid>? PatientIDs { get; set; }
     }
 }

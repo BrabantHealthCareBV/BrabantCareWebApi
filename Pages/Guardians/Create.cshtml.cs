@@ -20,6 +20,7 @@ namespace BrabantCareWebApi.Pages.Guardians
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid) return Page();
+            newGuardian.ID = Guid.NewGuid();
             await _guardianRepository.InsertAsync(newGuardian);
             return RedirectToPage("Index");
         }
