@@ -1,0 +1,13 @@
+﻿@page
+@model BrabantCareWebApi.Pages.Guardians.DeleteModel
+@{
+    Layout = "/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Delete Guardian</h2>
+<p>Are you sure you want to delete this guardian?</p>
+
+<form method="post">
+    <input type="hidden" asp-for="deleteGuardian.ID" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+</form>
