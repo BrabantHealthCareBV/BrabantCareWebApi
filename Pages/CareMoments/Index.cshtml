@@ -17,15 +17,15 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (var moment in Model.CareMoments)
+		@foreach (var careMoment in Model.CareMoments)
 		{
 			<tr>
-				<td>@moment.Name</td>
-				<td>@moment.Url</td>
-				<td>@moment.DurationInMinutes</td>
+				<td>@careMoment.Name</td>
+				<td>@careMoment.Url</td>
+				<td>@careMoment.DurationInMinutes</td>
 				<td>
-					<a asp-page="Edit" asp-route-id="@moment.ID" class="btn btn-warning ">Edit</a>
-					<a asp-page="Delete" asp-route-id="@moment.ID" class="btn btn-danger ">Delete</a>
+					<a asp-page="Edit" asp-route-id="@careMoment.ID" class="btn btn-warning ">Edit</a>
+					<a asp-page="Delete" asp-route-id="@careMoment.ID" class="btn btn-danger ">Delete</a>
 				</td>
 			</tr>
 		}

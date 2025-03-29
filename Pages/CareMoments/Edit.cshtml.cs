@@ -7,11 +7,11 @@ namespace BrabantCareWebApi.Pages.CareMoments
 {
     public class EditModel : PageModel
     {
-        private readonly CareMomentRepository _repository;
+        private readonly CareMomentRepository _careMomentRepository;
 
         public EditModel(CareMomentRepository repository)
         {
-            _repository = repository;
+            _careMomentRepository = repository;
         }
 
         [BindProperty]
@@ -19,7 +19,7 @@ namespace BrabantCareWebApi.Pages.CareMoments
 
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            var moment = await _repository.ReadAsync(id);
+            var moment = await _careMomentRepository.ReadAsync(id);
             if (moment == null) return NotFound();
             UpdatedCareMoment = moment;
             return Page();
@@ -30,7 +30,7 @@ namespace BrabantCareWebApi.Pages.CareMoments
             if (!ModelState.IsValid)
                 return Page();
 
-            await _repository.UpdateAsync(UpdatedCareMoment);
+            await _careMomentRepository.UpdateAsync(UpdatedCareMoment);
             return RedirectToPage("Index");
         }
     }

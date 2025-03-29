@@ -6,18 +6,18 @@ namespace BrabantCareWebApi.Pages.CareMoments
 {
     public class IndexModel : PageModel
     {
-        private readonly CareMomentRepository _repository;
+        private readonly CareMomentRepository _careMomentRepository;
 
         public IndexModel(CareMomentRepository repository)
         {
-            _repository = repository;
+            _careMomentRepository = repository;
         }
 
-        public List<CareMoment> CareMoments { get; set; } = new();
+        public IEnumerable<CareMoment> CareMoments { get; set; }
 
         public async Task OnGetAsync()
         {
-            CareMoments = (await _repository.ReadAsync()).ToList();
+            CareMoments = await _careMomentRepository.ReadAsync();
         }
     }
 }

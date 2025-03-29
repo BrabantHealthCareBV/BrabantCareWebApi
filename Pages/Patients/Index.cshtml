@@ -5,7 +5,7 @@
 }
 
 <h2>Patient List</h2>
-<a asp-page="/Patients/Create" class="btn btn-primary">Create New Patient</a>
+<a asp-page="Create" class="btn btn-primary mb-3">Create New</a>
 
 <table class="table">
 	<thead>
@@ -32,8 +32,8 @@
 				<td>@Model.TreatmentPlans.FirstOrDefault(t => t.ID == patient.TreatmentPlanID)?.Name</td>
 				<td>@Model.Doctors.FirstOrDefault(d => d.ID == patient.DoctorID)?.Name</td>
 				<td>
-					<a asp-page="/Patients/Edit" asp-route-id="@patient.ID" class="btn btn-warning">Edit</a> |
-					<a asp-page="/Patients/Delete" asp-route-id="@patient.ID" class="btn btn-danger">Delete</a>
+					<a asp-page="Edit" asp-route-id="@patient.ID" class="btn btn-warning">Edit</a> |
+					<a asp-page="Delete" asp-route-id="@patient.ID" class="btn btn-danger">Delete</a>
 				</td>
 			</tr>
 		}

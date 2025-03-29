@@ -7,11 +7,11 @@ namespace BrabantCareWebApi.Pages.CareMoments
 {
     public class CreateModel : PageModel
     {
-        private readonly CareMomentRepository _repository;
+        private readonly CareMomentRepository _careMomentRepository;
 
         public CreateModel(CareMomentRepository repository)
         {
-            _repository = repository;
+            _careMomentRepository = repository;
         }
 
         [BindProperty]
@@ -29,7 +29,7 @@ namespace BrabantCareWebApi.Pages.CareMoments
             }
 
             NewCareMoment.ID = Guid.NewGuid(); // Ensure a new ID
-            await _repository.InsertAsync(NewCareMoment);
+            await _careMomentRepository.InsertAsync(NewCareMoment);
             return RedirectToPage("Index");
         }
     }
