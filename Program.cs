@@ -1,10 +1,5 @@
-using BrabantCareWebApi;
 using Microsoft.AspNetCore.Identity;
-using Dapper;
-using Microsoft.AspNetCore.Authentication;
 using BrabantCareWebApi.Repositories;
-using ProjectMap.WebApi.Repositories;
-using Microsoft.DotNet.Scaffolding.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.

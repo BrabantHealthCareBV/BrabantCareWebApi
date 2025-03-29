@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using BrabantCareWebApi.Repositories;
 using BrabantCareWebApi.Models;
-using ProjectMap.WebApi.Repositories;
 
 namespace BrabantCareWebApi.Pages.Doctors
 {
