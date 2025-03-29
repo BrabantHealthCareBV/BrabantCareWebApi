@@ -24,6 +24,7 @@ namespace BrabantCareWebApi.Pages.TreatmentPlans
 
         public async Task OnGetAsync(Guid id)
         {
+            Console.WriteLine($"Fetching TreatmentPlanwith id: {id}");
             TreatmentPlan = await _treatmentPlanRepository.ReadAsync(id) ?? new TreatmentPlan();
 
             var careMoments = await _careMomentRepository.ReadAsync();
