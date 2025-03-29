@@ -1,31 +1,31 @@
 ﻿@page
 @model BrabantCareWebApi.Pages.Doctors.IndexModel
 @{
-    Layout = "/Pages/Shared/_Layout.cshtml";
+	Layout = "/Pages/Shared/_Layout.cshtml";
 }
 
 <h2>Doctors</h2>
-<a href="/Doctors/Create" class="btn btn-primary">Add New Doctor</a>
+<a asp-page="/Doctors/Create" class="btn btn-primary">Add New Doctor</a>
 
 <table class="table">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Specialization</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var doctor in Model.Doctors)
-        {
-            <tr>
-                <td>@doctor.Name</td>
-                <td>@doctor.Specialization</td>
-                <td>
-                    <a href="/Doctors/Edit?id=@doctor.ID" class="btn btn-warning btn-sm">Edit</a>
-                    <a href="/Doctors/Delete?id=@doctor.ID" class="btn btn-danger btn-sm">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Specialization</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var doctor in Model.Doctors)
+		{
+			<tr>
+				<td>@doctor.Name</td>
+				<td>@doctor.Specialization</td>
+				<td>
+					<a asp-page="/Doctors/Edit?" asp-route-id="@doctor.ID" class="btn btn-warning ">Edit</a>
+					<a asp-page="/Doctors/Delete?id" asp-route-id="@doctor.ID" class="btn btn-danger ">Delete</a>
+				</td>
+			</tr>
+		}
+	</tbody>
 </table>

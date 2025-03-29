@@ -5,7 +5,7 @@
 }
 
 <h2>Guardians</h2>
-<a asp-page="Create" class="btn btn-primary">Add Guardian</a>
+<a asp-page="/Guardiands/Create" class="btn btn-primary">Add Guardian</a>
 
 <table class="table">
     <thead>
@@ -22,8 +22,8 @@
                 <td>@guardian.FirstName</td>
                 <td>@guardian.LastName</td>
                 <td>
-                    <a asp-page="Edit" asp-route-id="@guardian.ID" class="btn btn-warning">Edit</a>
-                    <a asp-page="Delete" asp-route-id="@guardian.ID" class="btn btn-danger">Delete</a>
+                    <a asp-page="/Guardiands/Edit" asp-route-id="@guardian.ID" class="btn btn-warning">Edit</a>
+                    <a asp-page="/Guardiands/Delete" asp-route-id="@guardian.ID" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         }
