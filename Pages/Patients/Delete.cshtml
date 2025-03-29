@@ -1,4 +1,4 @@
-﻿@page "{id:int}"
+﻿@page "{id}"
 @model BrabantCareWebApi.Pages.Patients.DeleteModel
 @{
     Layout = "/Pages/Shared/_Layout.cshtml";
@@ -6,18 +6,18 @@
 
 <h2>Delete Patient</h2>
 
-<p>Are you sure you want to delete this patient?</p>
+<p>Are you sure you want to delete this patient: "<strong>@Model.PatientToDelete.Name</strong>"?</p>
 
 <ul>
-    <li><strong>First Name:</strong> @Model.ExistingPatient.FirstName</li>
-    <li><strong>Last Name:</strong> @Model.ExistingPatient.LastName</li>
-    <li><strong>Guardian:</strong> @Model.ExistingPatient.GuardianID</li>
-    <li><strong>Treatment Plan:</strong> @Model.ExistingPatient.TreatmentPlanID</li>
-    <li><strong>Doctor:</strong> @Model.ExistingPatient.DoctorID</li>
+    <li><strong>First Name:</strong> @Model.PatientToDelete.FirstName</li>
+    <li><strong>Last Name:</strong> @Model.PatientToDelete.LastName</li>
+    <li><strong>Guardian:</strong> @Model.PatientToDelete.GuardianID</li>
+    <li><strong>Treatment Plan:</strong> @Model.PatientToDelete.TreatmentPlanID</li>
+    <li><strong>Doctor:</strong> @Model.PatientToDelete.DoctorID</li>
 </ul>
 
 <form method="post">
-    <input type="hidden" asp-for="@Model.ExistingPatient.ID" />
+    <input type="hidden" asp-for="@Model.PatientToDelete.ID" />
     <button type="submit" class="btn btn-danger">Delete</button>
     <a asp-page="Index" class="btn btn-secondary">Cancel</a>
 </form>

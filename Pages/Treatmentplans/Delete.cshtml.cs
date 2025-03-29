@@ -8,27 +8,21 @@ namespace BrabantCareWebApi.Pages.TreatmentPlans
     public class DeleteModel : PageModel
     {
         private readonly TreatmentPlanRepository _treatmentPlanRepository;
-
         [BindProperty]
-        public TreatmentPlan TreatmentPlan { get; set; } = new();
-
+        public TreatmentPlan TreatmentPlanToDelete { get; set; } = new();
         public DeleteModel(TreatmentPlanRepository treatmentPlanRepository)
         {
             _treatmentPlanRepository = treatmentPlanRepository;
         }
-
-        public async Task OnGetAsync(Guid id)
+        public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            TreatmentPlan = await _treatmentPlanRepository.ReadAsync(id) ?? new TreatmentPlan();
+            TreatmentPlanToDelete = await _treatmentPlanRepository.ReadAsync(id);
+            if (TreatmentPlanToDelete == null) return NotFound();
+            return Page();
         }
-
         public async Task<IActionResult> OnPostAsync()
         {
-            if (TreatmentPlan != null)
-            {
-                await _treatmentPlanRepository.DeleteAsync(TreatmentPlan.ID);
-            }
-
+            await _treatmentPlanRepository.DeleteAsync(TreatmentPlanToDelete.ID);
             return RedirectToPage("Index");
         }
     }
