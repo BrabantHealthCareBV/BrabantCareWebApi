@@ -1,7 +1,6 @@
 ﻿using BrabantCareWebApi.Models;
 using Dapper;
 using Microsoft.Data.SqlClient;
-using ProjectMap.WebApi.Repositories;
 using System.Numerics;
 
 namespace BrabantCareWebApi.Repositories

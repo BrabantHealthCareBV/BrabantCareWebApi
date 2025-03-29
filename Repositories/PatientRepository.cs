@@ -18,8 +18,8 @@ namespace BrabantCareWebApi.Repositories
             using (var sqlConnection = new SqlConnection(sqlConnectionString))
             {
                 await sqlConnection.ExecuteAsync(@"
-                    INSERT INTO [Patients] (Id, FirstName, LastName, Birthdate, NextAppointmentDate, GuardianId, TreatmentPlanId, DoctorId) 
-                    VALUES (@Id, @FirstName, @LastName, @Birthdate, @NextAppointmentDate, @GuardianId, @TreatmentPlanId, @DoctorId)", patient);
+                    INSERT INTO [Patients] (Id, FirstName, LastName, Birthdate, NextAppointmentDate, GuardianId, TreatmentPlanId, DoctorToDelete) 
+                    VALUES (@Id, @FirstName, @LastName, @Birthdate, @NextAppointmentDate, @GuardianId, @TreatmentPlanId, @DoctorToDelete)", patient);
                 return patient;
             }
         }
@@ -53,7 +53,7 @@ namespace BrabantCareWebApi.Repositories
                     NextAppointmentDate = @NextAppointmentDate, 
                     GuardianId = @GuardianId, 
                     TreatmentPlanId = @TreatmentPlanId, 
-                    DoctorId = @DoctorId 
+                    DoctorToDelete = @DoctorToDelete 
                     WHERE Id = @Id", patient);
             }
         }

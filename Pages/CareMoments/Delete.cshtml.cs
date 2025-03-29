@@ -7,11 +7,11 @@ namespace BrabantCareWebApi.Pages.CareMoments
 {
     public class DeleteModel : PageModel
     {
-        private readonly CareMomentRepository _repository;
+        private readonly CareMomentRepository _careMomentRepository;
 
         public DeleteModel(CareMomentRepository repository)
         {
-            _repository = repository;
+            _careMomentRepository = repository;
         }
 
         [BindProperty]
@@ -19,15 +19,15 @@ namespace BrabantCareWebApi.Pages.CareMoments
 
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            var moment = await _repository.ReadAsync(id);
-            if (moment == null) return NotFound();
-            CareMomentToDelete = moment;
+            var careMoment = await _careMomentRepository.ReadAsync(id);
+            if (careMoment == null) return NotFound();
+            CareMomentToDelete = careMoment;
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            await _repository.DeleteAsync(CareMomentToDelete.ID);
+            await _careMomentRepository.DeleteAsync(CareMomentToDelete.ID);
             return RedirectToPage("Index");
         }
     }

@@ -3,7 +3,7 @@ using Microsoft.Data.SqlClient;
 using BrabantCareWebApi.Models;
 using Microsoft.Extensions.Logging;
 
-namespace ProjectMap.WebApi.Repositories
+namespace BrabantCareWebApi.Repositories
 {
     public class DoctorRepository
     {
@@ -42,7 +42,7 @@ namespace ProjectMap.WebApi.Repositories
         {
             try
             {
-                _logger.LogInformation("Fetching doctor with ID: {DoctorId}", id);
+                _logger.LogInformation("Fetching doctor with ID: {DoctorToDelete}", id);
 
                 using (var sqlConnection = new SqlConnection(sqlConnectionString))
                 {
@@ -55,7 +55,7 @@ namespace ProjectMap.WebApi.Repositories
                     }
                     else
                     {
-                        _logger.LogWarning("Doctor not found with ID: {DoctorId}", id);
+                        _logger.LogWarning("Doctor not found with ID: {DoctorToDelete}", id);
                     }
 
                     return doctor;
@@ -63,7 +63,7 @@ namespace ProjectMap.WebApi.Repositories
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error occurred while fetching doctor with ID: {DoctorId}", id);
+                _logger.LogError(ex, "Error occurred while fetching doctor with ID: {DoctorToDelete}", id);
                 throw;
             }
         }
@@ -92,7 +92,7 @@ namespace ProjectMap.WebApi.Repositories
         {
             try
             {
-                _logger.LogInformation("Updating doctor with ID: {DoctorId}", doctor.ID);
+                _logger.LogInformation("Updating doctor with ID: {DoctorToDelete}", doctor.ID);
 
                 using (var sqlConnection = new SqlConnection(sqlConnectionString))
                 {
@@ -112,17 +112,17 @@ namespace ProjectMap.WebApi.Repositories
         {
             try
             {
-                _logger.LogInformation("Deleting doctor with ID: {DoctorId}", id);
+                _logger.LogInformation("Deleting doctor with ID: {DoctorToDelete}", id);
 
                 using (var sqlConnection = new SqlConnection(sqlConnectionString))
                 {
                     await sqlConnection.ExecuteAsync("DELETE FROM [Doctors] WHERE Id = @Id", new { id });
-                    _logger.LogInformation("Doctor deleted with ID: {DoctorId}", id);
+                    _logger.LogInformation("Doctor deleted with ID: {DoctorToDelete}", id);
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error occurred while deleting doctor with ID: {DoctorId}", id);
+                _logger.LogError(ex, "Error occurred while deleting doctor with ID: {DoctorToDelete}", id);
                 throw;
             }
         }
