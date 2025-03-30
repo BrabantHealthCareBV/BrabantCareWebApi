@@ -25,7 +25,7 @@ namespace BrabantCareWebApi.Repositories
                 using (var sqlConnection = new SqlConnection(sqlConnectionString))
                 {
                     await sqlConnection.ExecuteAsync(
-                        "INSERT INTO TreatmentPlan_CareMoment (TreatmentPlanID, CareMomentID, [Order]) VALUES (@TreatmentPlanID, @CareMomentID, @Order)", entity);
+                        "INSERT INTO TreatmentPlan_CareMoments (TreatmentPlanID, CareMomentID, [Order]) VALUES (@TreatmentPlanID, @CareMomentID, @Order)", entity);
                 }
             }
             catch (Exception ex)
@@ -44,7 +44,7 @@ namespace BrabantCareWebApi.Repositories
                 using (var sqlConnection = new SqlConnection(sqlConnectionString))
                 {
                     return await sqlConnection.QueryAsync<TreatmentPlanCareMoment>(
-                        "SELECT * FROM TreatmentPlan_CareMoment WHERE TreatmentPlanID = @TreatmentPlanID ORDER BY [Order]",
+                        "SELECT * FROM TreatmentPlan_CareMoments WHERE TreatmentPlanID = @TreatmentPlanID ORDER BY [Order]",
                         new { TreatmentPlanID = treatmentPlanId });
                 }
             }
@@ -64,7 +64,7 @@ namespace BrabantCareWebApi.Repositories
                 using (var sqlConnection = new SqlConnection(sqlConnectionString))
                 {
                     await sqlConnection.ExecuteAsync(
-                        "UPDATE TreatmentPlan_CareMoment SET [Order] = @Order WHERE TreatmentPlanID = @TreatmentPlanID AND CareMomentID = @CareMomentID",
+                        "UPDATE TreatmentPlan_CareMoments SET [Order] = @Order WHERE TreatmentPlanID = @TreatmentPlanID AND CareMomentID = @CareMomentID",
                         entity);
                 }
             }
@@ -84,7 +84,7 @@ namespace BrabantCareWebApi.Repositories
                 using (var sqlConnection = new SqlConnection(sqlConnectionString))
                 {
                     await sqlConnection.ExecuteAsync(
-                        "DELETE FROM TreatmentPlan_CareMoment WHERE TreatmentPlanID = @TreatmentPlanID AND CareMomentID = @CareMomentID",
+                        "DELETE FROM TreatmentPlan_CareMoments WHERE TreatmentPlanID = @TreatmentPlanID AND CareMomentID = @CareMomentID",
                         new { TreatmentPlanID = treatmentPlanId, CareMomentID = careMomentId });
                 }
             }
