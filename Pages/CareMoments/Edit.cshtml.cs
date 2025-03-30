@@ -13,17 +13,17 @@ namespace BrabantCareWebApi.Pages.CareMoments
             _careMomentRepository = repository;
         }
         [BindProperty]
-        public CareMoment UpdatedCareMoment { get; set; }
+        public CareMoment updatedCareMoment { get; set; }
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            UpdatedCareMoment = await _careMomentRepository.ReadAsync(id);
-            if (UpdatedCareMoment == null) return NotFound();
+            updatedCareMoment = await _careMomentRepository.ReadAsync(id);
+            if (updatedCareMoment == null) return NotFound();
             return Page();
         }
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid) return Page();
-            await _careMomentRepository.UpdateAsync(UpdatedCareMoment);
+            await _careMomentRepository.UpdateAsync(updatedCareMoment);
             return RedirectToPage("Index");
         }
     }

@@ -10,7 +10,7 @@ namespace BrabantCareWebApi.Pages.TreatmentPlans
     {
         private readonly TreatmentPlanRepository _treatmentPlanRepository;
         [BindProperty]
-        public TreatmentPlan UpdatedTreatmentPlan { get; set; } = new();
+        public TreatmentPlan updatedTreatmentPlan { get; set; } = new();
         public EditModel(TreatmentPlanRepository treatmentPlanRepository, CareMomentRepository careMomentRepository)
         {
             _treatmentPlanRepository = treatmentPlanRepository;
@@ -18,15 +18,15 @@ namespace BrabantCareWebApi.Pages.TreatmentPlans
 
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            UpdatedTreatmentPlan = await _treatmentPlanRepository.ReadAsync(id);
-            if (UpdatedTreatmentPlan == null) return NotFound();
+            updatedTreatmentPlan = await _treatmentPlanRepository.ReadAsync(id);
+            if (updatedTreatmentPlan == null) return NotFound();
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid) return Page();
-            await _treatmentPlanRepository.UpdateAsync(UpdatedTreatmentPlan);
+            await _treatmentPlanRepository.UpdateAsync(updatedTreatmentPlan);
             return RedirectToPage("Index");
         }
     }

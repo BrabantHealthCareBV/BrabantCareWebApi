@@ -7,6 +7,7 @@
 <h2>Edit Patient</h2>
 
 <form method="post" asp-page="/Patients/Edit">
+    <input type="hidden" asp-for="updatedPatient.ID" />
     <div class="mb-3">
         <label class="form-label">First Name</label>
         <input asp-for="updatedPatient.FirstName" class="form-control" required />
