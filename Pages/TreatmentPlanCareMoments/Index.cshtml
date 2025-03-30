@@ -1,28 +1,24 @@
-﻿@page "{id}"
-@model BrabantCareWebApi.Pages.TreatmentPlanCareMoments.IndexModel
+﻿@page
+@model IndexModel
 @{
-	Layout = "/Pages/Shared/_Layout.cshtml";
+    Layout = "/Pages/Shared/_Layout.cshtml";
 }
-<h2>Care Moments for Treatment Plan</h2>
-<a asp-page="Create" asp-route-TreatmentPlanID="@Model.TreatmentPlanID">Add Care Moment</a>
 
-<table>
+<h2>Select a Treatment Plan</h2>
+<table class="table table-bordered">
     <thead>
         <tr>
-            <th>Care Moment ID</th>
-            <th>Order</th>
+            <th>Name</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (TreatmentPlanCareMoment item in Model.CareMoments)
+        @foreach (var plan in Model.TreatmentPlans)
         {
             <tr>
-                <td>@item.CareMomentID</td>
-                <td>@item.Order</td>
+                <td>@plan.Name</td>
                 <td>
-                    <a asp-page="Edit" asp-route-TreatmentPlanID="@item.TreatmentPlanID" asp-route-CareMomentID="@item.CareMomentID">Edit</a> |
-                    <a asp-page="Delete" asp-route-TreatmentPlanID="@item.TreatmentPlanID" asp-route-CareMomentID="@item.CareMomentID">Delete</a>
+                    <a class="btn btn-primary" asp-page="Manage" asp-route-TreatmentPlanID="@plan.ID">Manage Care Moments</a>
                 </td>
             </tr>
         }
