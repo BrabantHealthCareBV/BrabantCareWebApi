@@ -1,0 +1,30 @@
+﻿@page "{id}"
+@model BrabantCareWebApi.Pages.TreatmentPlanCareMoments.IndexModel
+@{
+	Layout = "/Pages/Shared/_Layout.cshtml";
+}
+<h2>Care Moments for Treatment Plan</h2>
+<a asp-page="Create" asp-route-TreatmentPlanID="@Model.TreatmentPlanID">Add Care Moment</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>Care Moment ID</th>
+            <th>Order</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (TreatmentPlanCareMoment item in Model.CareMoments)
+        {
+            <tr>
+                <td>@item.CareMomentID</td>
+                <td>@item.Order</td>
+                <td>
+                    <a asp-page="Edit" asp-route-TreatmentPlanID="@item.TreatmentPlanID" asp-route-CareMomentID="@item.CareMomentID">Edit</a> |
+                    <a asp-page="Delete" asp-route-TreatmentPlanID="@item.TreatmentPlanID" asp-route-CareMomentID="@item.CareMomentID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
