@@ -42,7 +42,7 @@ namespace BrabantCareWebApi.Pages.Doctors
             {
                 newDoctor.ID = Guid.NewGuid();
                 await _doctorRepository.InsertAsync(newDoctor);
-                _logger.LogInformation($"Doctor {newDoctor.Name} successfully created.");
+                _logger.LogInformation($"updatedDoctor {newDoctor.Name} successfully created.");
 
                 return RedirectToPage("Index");  // Redirect after successful creation
             }
@@ -52,7 +52,7 @@ namespace BrabantCareWebApi.Pages.Doctors
                 return Page();  // Return to the page if there's an error
             }
         }
-        //public void OnPost(Doctor doctor)
+        //public void OnPost(updatedDoctor doctor)
         //{
         //    _logger.LogInformation("post called");
         //}

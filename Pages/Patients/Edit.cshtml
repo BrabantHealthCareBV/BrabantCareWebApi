@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{id}"
 @model BrabantCareWebApi.Pages.Patients.EditModel
 @{
     Layout = "/Pages/Shared/_Layout.cshtml";
@@ -9,33 +9,33 @@
 <form method="post" asp-page="/Patients/Edit">
     <div class="mb-3">
         <label class="form-label">First Name</label>
-        <input asp-for="patient.FirstName" class="form-control" required />
+        <input asp-for="updatedPatient.FirstName" class="form-control" required />
     </div>
     <div class="mb-3">
         <label class="form-label">Last Name</label>
-        <input asp-for="patient.LastName" class="form-control" required />
+        <input asp-for="updatedPatient.LastName" class="form-control" required />
     </div>
     <div class="mb-3">
         <label class="form-label">Birthdate</label>
-        <input asp-for="patient.Birthdate" class="form-control" type="date" required />
+        <input asp-for="updatedPatient.Birthdate" class="form-control" type="date" required />
     </div>
     <div class="mb-3">
         <label class="form-label">Next Appointment Date</label>
-        <input asp-for="patient.NextAppointmentDate" class="form-control" type="datetime-local" required />
+        <input asp-for="updatedPatient.NextAppointmentDate" class="form-control" type="datetime-local" required />
     </div>
     <div class="mb-3">
         <label class="form-label">Guardian</label>
-        <select asp-for="patient.GuardianID" class="form-control" asp-items="@(new SelectList(Model.Guardians, "ID", "FirstName"))"></select>
+        <select asp-for="updatedPatient.GuardianID" class="form-control" asp-items="@(new SelectList(Model.Guardians, "ID", "FirstName"))"></select>
     </div>
 
     <div class="mb-3">
         <label class="form-label">Treatment Plan</label>
-        <select asp-for="patient.TreatmentPlanID" class="form-control" asp-items="@(new SelectList(Model.TreatmentPlans, "ID", "Name"))"></select>
+        <select asp-for="updatedPatient.TreatmentPlanID" class="form-control" asp-items="@(new SelectList(Model.TreatmentPlans, "ID", "Name"))"></select>
     </div>
 
     <div class="mb-3">
         <label class="form-label">Doctor</label>
-        <select asp-for="patient.DoctorID" class="form-control" asp-items="@(new SelectList(Model.Doctors, "ID", "Name"))"></select>
+        <select asp-for="updatedPatient.DoctorID" class="form-control" asp-items="@(new SelectList(Model.Doctors, "ID", "Name"))"></select>
     </div>
 
     <button type="submit" class="btn btn-primary">Save Changes</button>

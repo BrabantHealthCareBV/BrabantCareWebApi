@@ -22,23 +22,20 @@ namespace BrabantCareWebApi.Pages.TreatmentPlans
             _careMomentRepository = careMomentRepository;
         }
 
-        public async Task OnGetAsync(Guid id)
+        public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            Console.WriteLine($"Fetching TreatmentPlanwith id: {id}");
-            TreatmentPlan = await _treatmentPlanRepository.ReadAsync(id) ?? new TreatmentPlan();
-
+            TreatmentPlan = await _treatmentPlanRepository.ReadAsync(id);
+            if (TreatmentPlan == null) return NotFound();
             var careMoments = await _careMomentRepository.ReadAsync();
             CareMomentSelectList = careMoments
                 .Select(cm => new SelectListItem { Value = cm.ID.ToString(), Text = cm.Name })
                 .ToList();
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-                return Page();
-            Console.WriteLine($"Updating Treatmentplan: {TreatmentPlan.ID} - {TreatmentPlan.Name} ");
-
+            if (!ModelState.IsValid) return Page();
             await _treatmentPlanRepository.UpdateAsync(TreatmentPlan);
             return RedirectToPage("Index");
         }

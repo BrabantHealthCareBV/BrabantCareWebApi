@@ -24,20 +24,14 @@ namespace BrabantCareWebApi.Pages.Patients
         }
 
         [BindProperty]
-        public Patient patient { get; set; }
-
+        public Patient updatedPatient { get; set; }
         public List<Guardian> Guardians { get; set; }
         public List<TreatmentPlan> TreatmentPlans { get; set; }
         public List<Doctor> Doctors { get; set; }
-
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            // Fetch patient details and related dropdown lists
-            patient = await _patientRepository.ReadAsync(id);
-            if (patient == null)
-            {
-                return NotFound();
-            }
+            updatedPatient = await _patientRepository.ReadAsync(id);
+            if (updatedPatient == null) return NotFound();
 
             Guardians = (List<Guardian>)await _guardianRepository.ReadAsync();
             TreatmentPlans = (List<TreatmentPlan>)await _treatmentPlanRepository.ReadAsync();
@@ -45,14 +39,10 @@ namespace BrabantCareWebApi.Pages.Patients
 
             return Page();
         }
-
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-                return Page();
-            Console.WriteLine($"Updating Patient: {patient.ID} - {patient.FirstName} {patient.LastName}, Birthdate: {patient.Birthdate}");
-
-            await _patientRepository.UpdateAsync(patient);
+            if (!ModelState.IsValid) return Page();
+            await _patientRepository.UpdateAsync(updatedPatient);
             return RedirectToPage("/Patients/Index");
         }
     }

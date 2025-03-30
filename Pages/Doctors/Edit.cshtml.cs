@@ -15,27 +15,20 @@ namespace BrabantCareWebApi.Pages.Doctors
         }
 
         [BindProperty]
-        public Doctor Doctor { get; set; }
+        public Doctor updatedDoctor { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            Doctor = await _doctorRepository.ReadAsync(id);
-            if (Doctor == null)
-            {
-                return NotFound();
-            }
-
+            updatedDoctor = await _doctorRepository.ReadAsync(id);
+            if (updatedDoctor == null) return NotFound();
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
-            {
                 return Page();
-            }
-
-            await _doctorRepository.UpdateAsync(Doctor);
+            await _doctorRepository.UpdateAsync(updatedDoctor);
             return RedirectToPage("/Doctors/Index");
         }
     }

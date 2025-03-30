@@ -26,7 +26,7 @@ namespace BrabantCareWebApi.Repositories
                 {
                     await sqlConnection.ExecuteAsync(
                         "INSERT INTO [Doctors] (Id, Name, Specialization) VALUES (@Id, @Name, @Specialization)", doctor);
-                    _logger.LogInformation("Doctor inserted successfully: {DoctorName}", doctor.Name);
+                    _logger.LogInformation("updatedDoctor inserted successfully: {DoctorName}", doctor.Name);
                 }
 
                 return doctor;
@@ -51,11 +51,11 @@ namespace BrabantCareWebApi.Repositories
 
                     if (doctor != null)
                     {
-                        _logger.LogInformation("Doctor found: {DoctorName}", doctor.Name);
+                        _logger.LogInformation("updatedDoctor found: {DoctorName}", doctor.Name);
                     }
                     else
                     {
-                        _logger.LogWarning("Doctor not found with ID: {DoctorToDelete}", id);
+                        _logger.LogWarning("updatedDoctor not found with ID: {DoctorToDelete}", id);
                     }
 
                     return doctor;
@@ -98,7 +98,7 @@ namespace BrabantCareWebApi.Repositories
                 {
                     await sqlConnection.ExecuteAsync(
                         "UPDATE [Doctors] SET Name = @Name, Specialization = @Specialization WHERE Id = @Id", doctor);
-                    _logger.LogInformation("Doctor updated successfully: {DoctorName}", doctor.Name);
+                    _logger.LogInformation("updatedDoctor updated successfully: {DoctorName}", doctor.Name);
                 }
             }
             catch (Exception ex)
@@ -117,7 +117,7 @@ namespace BrabantCareWebApi.Repositories
                 using (var sqlConnection = new SqlConnection(sqlConnectionString))
                 {
                     await sqlConnection.ExecuteAsync("DELETE FROM [Doctors] WHERE Id = @Id", new { id });
-                    _logger.LogInformation("Doctor deleted with ID: {DoctorToDelete}", id);
+                    _logger.LogInformation("updatedDoctor deleted with ID: {DoctorToDelete}", id);
                 }
             }
             catch (Exception ex)

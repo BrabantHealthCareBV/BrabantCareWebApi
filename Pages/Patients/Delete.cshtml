@@ -8,14 +8,6 @@
 
 <p>Are you sure you want to delete this patient: "<strong>@Model.PatientToDelete.FirstName</strong>"?</p>
 
-<ul>
-    <li><strong>First Name:</strong> @Model.PatientToDelete.FirstName</li>
-    <li><strong>Last Name:</strong> @Model.PatientToDelete.LastName</li>
-    <li><strong>Guardian:</strong> @Model.PatientToDelete.GuardianID</li>
-    <li><strong>Treatment Plan:</strong> @Model.PatientToDelete.TreatmentPlanID</li>
-    <li><strong>Doctor:</strong> @Model.PatientToDelete.DoctorID</li>
-</ul>
-
 <form method="post">
     <input type="hidden" asp-for="@Model.PatientToDelete.ID" />
     <button type="submit" class="btn btn-danger">Delete</button>

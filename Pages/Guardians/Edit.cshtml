@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{id}"
 @model BrabantCareWebApi.Pages.Guardians.EditModel
 @{
     Layout = "/Pages/Shared/_Layout.cshtml";
@@ -7,14 +7,14 @@
 <h2>Edit Guardian</h2>
 
 <form method="post">
-    <input type="hidden" asp-for="editGuardian.ID" />
+    <input type="hidden" asp-for="updatedGuardian.ID" />
     <div class="mb-3">
         <label class="form-label">First Name</label>
-        <input asp-for="editGuardian.FirstName" class="form-control" required />
+        <input asp-for="updatedGuardian.FirstName" class="form-control" required />
     </div>
     <div class="mb-3">
         <label class="form-label">Last Name</label>
-        <input asp-for="editGuardian.LastName" class="form-control" required />
+        <input asp-for="updatedGuardian.LastName" class="form-control" required />
     </div>
-    <button type="submit" class="btn btn-success">Save</button>
+    <button type="submit" class="btn btn-success">Save Changes</button>
 </form>

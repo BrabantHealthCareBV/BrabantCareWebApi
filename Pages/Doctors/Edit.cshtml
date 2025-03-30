@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{id}"
 @model BrabantCareWebApi.Pages.Doctors.EditModel
 @{
     Layout = "/Pages/Shared/_Layout.cshtml";
@@ -7,15 +7,14 @@
 <h2>Edit Doctor</h2>
 
 <form method="post">
-    <input type="hidden" asp-for="Doctor.ID" />
-
+    <input type="hidden" asp-for="updatedDoctor.ID" />
     <div class="mb-3">
         <label class="form-label">Name</label>
-        <input asp-for="Doctor.Name" class="form-control" required />
+        <input asp-for="updatedDoctor.Name" class="form-control" required />
     </div>
     <div class="mb-3">
         <label class="form-label">Specialization</label>
-        <input asp-for="Doctor.Specialization" class="form-control" required />
+        <input asp-for="updatedDoctor.Specialization" class="form-control" required />
     </div>
-    <button type="submit" class="btn btn-success">Save</button>
+    <button type="submit" class="btn btn-success">Save Changes</button>
 </form>
