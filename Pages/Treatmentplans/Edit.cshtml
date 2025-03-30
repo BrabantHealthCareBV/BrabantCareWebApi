@@ -12,10 +12,5 @@
         <label class="form-label">Name</label>
         <input asp-for="UpdatedTreatmentPlan.Name" class="form-control" required />
     </div>
-    <div class="mb-3">
-        <label class="form-label">Care Moments</label>
-        <select asp-for="UpdatedTreatmentPlan.CareMomentIDs" asp-items="Model.CareMomentSelectList" class="form-control" multiple>
-        </select>
-    </div>
     <button type="submit" class="btn btn-success">Save Changes</button>
 </form>
