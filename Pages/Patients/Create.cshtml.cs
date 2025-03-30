@@ -24,7 +24,7 @@ namespace BrabantCareWebApi.Pages.Patients
         }
 
         [BindProperty]
-        public Patient newPatient { get; set; }
+        public Patient newPatient { get; set; } = new();
 
         public List<Guardian> Guardians { get; set; }
         public List<TreatmentPlan> TreatmentPlans { get; set; }
@@ -35,12 +35,9 @@ namespace BrabantCareWebApi.Pages.Patients
             Guardians = (List<Guardian>)await _guardianRepository.ReadAsync();
             TreatmentPlans = (List<TreatmentPlan>)await _treatmentPlanRepository.ReadAsync();
             Doctors = (List<Doctor>)await _doctorRepository.ReadAsync();
-
-            // Add checks to ensure they are not null or empty
             if (Guardians == null || TreatmentPlans == null || Doctors == null)
             {
-                // Log or throw an exception here
-                return Page(); // Or some error page if needed
+                return Page(); 
             }
 
             return Page();
@@ -50,12 +47,17 @@ namespace BrabantCareWebApi.Pages.Patients
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
-                return Page();
+            {
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine(error.ErrorMessage); 
+                }
+                return Page(); 
+            }
 
-            newPatient.ID = Guid.NewGuid();  // Generate a new ID for the newPatient
+            newPatient.ID = Guid.NewGuid();
             await _patientRepository.InsertAsync(newPatient);
-
-            return RedirectToPage("/Patients/Index");
+            return RedirectToPage("Index");
         }
     }
 }

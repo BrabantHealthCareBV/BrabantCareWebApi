@@ -23,12 +23,12 @@ namespace BrabantCareWebApi.Pages.CareMoments
             {
                 foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
                 {
-                    Console.WriteLine(error.ErrorMessage); // Log errors
+                    Console.WriteLine(error.ErrorMessage);
                 }
-                return Page(); // Return the form with validation errors
+                return Page();
             }
 
-            NewCareMoment.ID = Guid.NewGuid(); // Ensure a new ID
+            NewCareMoment.ID = Guid.NewGuid(); 
             await _careMomentRepository.InsertAsync(NewCareMoment);
             return RedirectToPage("Index");
         }
