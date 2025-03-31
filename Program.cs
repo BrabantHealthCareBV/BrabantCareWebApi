@@ -1,5 +1,5 @@
-using Microsoft.AspNetCore.Identity;
 using BrabantCareWebApi.Repositories;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -32,6 +32,12 @@ builder.Services.AddScoped<TreatmentPlanCareMomentRepository>(provider =>
 {
     var logger = provider.GetRequiredService<ILogger<TreatmentPlanCareMomentRepository>>(); // Get logger from DI container
     return new TreatmentPlanCareMomentRepository(sqlConnectionString, logger); // Inject the logger into the repository
+});
+
+builder.Services.AddScoped<UserRepository>(provider =>
+{
+    var logger = provider.GetRequiredService<ILogger<UserRepository>>(); // Get logger from DI container
+    return new UserRepository(sqlConnectionString, logger); // Inject the logger into the repository
 });
 
 builder.Services.AddLogging(logging =>
