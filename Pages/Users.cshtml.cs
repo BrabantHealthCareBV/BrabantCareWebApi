@@ -1,32 +1,29 @@
-using Microsoft.AspNetCore.Identity;
+using BrabantCareWebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public class UsersModel : PageModel
 {
-    private readonly UserManager<IdentityUser> _userManager;
+    private readonly UserRepository _userRepository;
 
-    public UsersModel(UserManager<IdentityUser> userManager)
+    public UsersModel(UserRepository userRepository)
     {
-        _userManager = userManager;
+        _userRepository = userRepository;
     }
 
-    public List<IdentityUser> Users { get; set; }
+    public List<User> Users { get; set; }
 
     public async Task<IActionResult> OnGetAsync()
     {
-        Users = new List<IdentityUser>(await _userManager.Users.ToListAsync());
+        Users = await _userRepository.GetAllUsersAsync();
         return Page();
     }
 
     public async Task<IActionResult> OnPostDeleteAsync(string userId)
     {
-        var user = await _userManager.FindByIdAsync(userId);
-        if (user != null)
-        {
-            await _userManager.DeleteAsync(user);
-        }
+        await _userRepository.DeleteUserAsync(userId);
         return RedirectToPage();
     }
 }
