@@ -15,6 +15,7 @@ namespace BrabantCareWebApi.Repositories
 
         public async Task<Patient> InsertAsync(Patient patient)
         {
+            patient.ID = Guid.NewGuid();
             using (var sqlConnection = new SqlConnection(sqlConnectionString))
             {
                 await sqlConnection.ExecuteAsync(@"

@@ -16,13 +16,13 @@ public class UserRepository
     public async Task<List<User>> GetAllUsersAsync()
     {
         using var connection = new SqlConnection(_connectionString);
-        var users = await connection.QueryAsync<User>("SELECT Id, Email FROM AspNetUsers");
+        var users = await connection.QueryAsync<User>("SELECT Id, Email FROM auth.AspNetUsers");
         return users.AsList();
     }
 
     public async Task DeleteUserAsync(string userId)
     {
         using var connection = new SqlConnection(_connectionString);
-        await connection.ExecuteAsync("DELETE FROM AspNetUsers WHERE Id = @UserId", new { UserId = userId });
+        await connection.ExecuteAsync("DELETE FROM auth.AspNetUsers WHERE Id = @UserId", new { UserId = userId });
     }
 }
