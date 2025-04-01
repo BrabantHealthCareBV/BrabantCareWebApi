@@ -10,5 +10,6 @@ namespace BrabantCareWebApi.Models
         public Guid GuardianID { get; set; }
         public Guid TreatmentPlanID { get; set; }
         public Guid? DoctorID { get; set; }
+        public string? UserID { get; set; }
     }
 }
