@@ -15,12 +15,11 @@ namespace BrabantCareWebApi.Repositories
 
         public async Task<Patient> InsertAsync(Patient patient)
         {
-            patient.ID = Guid.NewGuid();
             using (var sqlConnection = new SqlConnection(sqlConnectionString))
             {
                 await sqlConnection.ExecuteAsync(@"
-                    INSERT INTO [Patients] (Id, FirstName, LastName, Birthdate, NextAppointmentDate, GuardianId, TreatmentPlanId, DoctorID) 
-                    VALUES (@Id, @FirstName, @LastName, @Birthdate, @NextAppointmentDate, @GuardianId, @TreatmentPlanId, @DoctorID)", patient);
+                    INSERT INTO [Patients] (Id, UserID, FirstName, LastName, Birthdate, NextAppointmentDate, GuardianId, TreatmentPlanId, DoctorID) 
+                    VALUES (@Id, UserID, @FirstName, @LastName, @Birthdate, @NextAppointmentDate, @GuardianId, @TreatmentPlanId, @DoctorID)", patient);
                 return patient;
             }
         }
