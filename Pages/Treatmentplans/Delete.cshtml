@@ -1,0 +1,14 @@
+﻿@page "{id}"
+@model BrabantCareWebApi.Pages.TreatmentPlans.DeleteModel
+@{
+    Layout = "/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Delete Treatment Plan</h2>
+
+<p>Are you sure you want to delete the treatment plan "<strong>@Model.TreatmentPlanToDelete.Name</strong>"?</p>
+
+<form method="post">
+    <button type="submit" class="btn btn-ToDeletedanger">Delete</button>
+    <a class="btn btn-secondary" asp-page="Index">Cancel</a>
+</form>

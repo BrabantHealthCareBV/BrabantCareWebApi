@@ -1,0 +1,23 @@
+﻿@page
+@model BrabantCareWebApi.Pages.CareMoments.CreateModel
+@{
+    Layout = "/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Create Care Moment</h2>
+
+<form method="post">
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input asp-for="NewCareMoment.Name" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">URL</label>
+        <input asp-for="NewCareMoment.Url" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Duration (minutes)</label>
+        <input asp-for="NewCareMoment.DurationInMinutes" class="form-control" type="number" />
+    </div>
+    <button type="submit" class="btn btn-success">Create</button>
+</form>

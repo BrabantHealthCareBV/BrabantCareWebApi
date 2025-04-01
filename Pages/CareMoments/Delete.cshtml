@@ -1,0 +1,15 @@
+﻿@page "{id}"
+@model BrabantCareWebApi.Pages.CareMoments.DeleteModel
+@{
+    Layout = "/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Delete Care Moment</h2>
+
+<p>Are you sure you want to delete this care moment: "<strong>@Model.CareMomentToDelete.Name</strong>"?</p>
+
+<form method="post">
+    <input type="hidden" asp-for="CareMomentToDelete.ID" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>

@@ -1,0 +1,26 @@
+﻿@page
+@model IndexModel
+@{
+    Layout = "/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Select a Treatment Plan</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var plan in Model.TreatmentPlans)
+        {
+            <tr>
+                <td>@plan.Name</td>
+                <td>
+                    <a class="btn btn-primary" asp-page="Manage" asp-route-TreatmentPlanID="@plan.ID">Manage Care Moments</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

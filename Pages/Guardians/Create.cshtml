@@ -1,0 +1,19 @@
+﻿@page
+@model BrabantCareWebApi.Pages.Guardians.CreateModel
+@{
+    Layout = "/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Create New Guardian</h2>
+
+<form method="post" asp-page="/Guardians/Create">
+    <div class="mb-3">
+        <label class="form-label">First Name</label>
+        <input asp-for="@Model.newGuardian.FirstName" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Last Name</label>
+        <input asp-for="@Model.newGuardian.LastName" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-success">Create</button>
+</form>
