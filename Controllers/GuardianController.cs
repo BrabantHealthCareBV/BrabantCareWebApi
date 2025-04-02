@@ -33,7 +33,8 @@ public class GuardianController : ControllerBase
     [HttpGet]
     public async Task<IEnumerable<Guardian>> GetGuardians()
     {
-        return await _guardianRepository.ReadAsync();
+        string? userId = _authenticationService.GetCurrentAuthenticatedUserId();
+        return await _guardianRepository.ReadByUserAsync(userId);
     }
 
     [HttpGet("{id}")]
