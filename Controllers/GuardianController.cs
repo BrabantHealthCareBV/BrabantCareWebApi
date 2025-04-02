@@ -21,7 +21,7 @@ public class GuardianController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IEnumerable<Guardian>> GetAllGuardians()
+    public async Task<IEnumerable<Guardian>> GetGuardians()
     {
         return await _guardianRepository.ReadAsync();
     }
