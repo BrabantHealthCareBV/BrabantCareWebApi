@@ -90,11 +90,12 @@ public class PatientController : ControllerBase
 
 
     [HttpGet]
-    public async Task<IActionResult> GetAllPatients()
+    public async Task<IActionResult> GetPatients()
     {
         try
         {
-            var patients = await _patientRepository.ReadAsync();
+            var userId = _authenticationService.GetCurrentAuthenticatedUserId();
+            var patients = await _patientRepository.ReadByUserAsync(userId);
             return Ok(patients);
         }
         catch (Exception ex)

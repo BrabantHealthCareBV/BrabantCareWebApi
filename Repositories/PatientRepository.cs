@@ -84,6 +84,26 @@ namespace BrabantCareWebApi.Repositories
             }
         }
 
+        public async Task<IEnumerable<Patient>> ReadByUserAsync(string userId)
+        {
+
+            logger.LogInformation("Reading all for user patients");
+            try
+            {
+                using (var sqlConnection = new SqlConnection(sqlConnectionString))
+                {
+                    var patients = await sqlConnection.QueryAsync<Patient>("SELECT * FROM [Patients] WHERE UserId = @UserId", new { UserId = userId });
+                    logger.LogInformation("Successfully retrieved {Count} patients", patients.Count());
+                    return patients;
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error reading all patients");
+                throw;
+            }
+        }
+
         public async Task UpdateAsync(Patient patient)
         {
             logger.LogInformation("Updating patient with ID: {Id}", patient.ID);
