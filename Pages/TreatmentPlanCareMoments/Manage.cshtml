@@ -34,6 +34,8 @@
 
 <h4>Add Care Moment</h4>
 <form method="post">
+    <input type="hidden" name="TreatmentPlanID" value="@Model.TreatmentPlanID" />
+
     <div class="mb-3">
         <label for="careMomentId" class="form-label">Select Care Moment</label>
         <select class="form-control" name="careMomentId">
@@ -43,5 +45,7 @@
             }
         </select>
     </div>
+
     <button type="submit" asp-page-handler="Add" class="btn btn-success">Add Care Moment</button>
 </form>
+

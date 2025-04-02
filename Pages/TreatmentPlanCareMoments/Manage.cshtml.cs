@@ -26,18 +26,25 @@ public class ManageModel : PageModel
         AvailableCareMoments = await _careMomentRepo.ReadAsync();
     }
 
-    public async Task<IActionResult> OnPostAddAsync(Guid careMomentId)
+    public async Task<IActionResult> OnPostAddAsync(Guid careMomentId, Guid TreatmentPlanID)
     {
+        if (TreatmentPlanID == Guid.Empty || careMomentId == Guid.Empty)
+        {
+            ModelState.AddModelError(string.Empty, "Invalid data.");
+            return Page();
+        }
+
         var newLink = new TreatmentPlanCareMoment
         {
             TreatmentPlanID = TreatmentPlanID,
             CareMomentID = careMomentId,
-            Order = LinkedCareMoments.Count() + 1
+            Order = (await _tpCareMomentRepo.ReadAsync(TreatmentPlanID)).Count() + 1
         };
 
         await _tpCareMomentRepo.InsertAsync(newLink);
         return RedirectToPage(new { TreatmentPlanID });
     }
+
 
     public async Task<IActionResult> OnPostRemoveAsync(Guid careMomentId)
     {
