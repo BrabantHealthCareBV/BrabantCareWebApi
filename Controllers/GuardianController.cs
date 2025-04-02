@@ -1,5 +1,6 @@
 ﻿using BrabantCareWebApi.Models;
 using BrabantCareWebApi.Repositories;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
@@ -7,15 +8,20 @@ using Microsoft.AspNetCore.Mvc;
 public class GuardianController : ControllerBase
 {
     private readonly GuardianRepository _guardianRepository;
+    private readonly IAuthenticationService _authenticationService;
 
-    public GuardianController(GuardianRepository guardianRepository)
+    public GuardianController(GuardianRepository guardianRepository, IAuthenticationService authenticationService)
     {
         _guardianRepository = guardianRepository;
+        _authenticationService = authenticationService;
     }
 
     [HttpPost]
     public async Task<IActionResult> AddGuardian([FromBody] Guardian guardian)
     {
+
+        var userId = _authenticationService.GetCurrentAuthenticatedUserId();
+        guardian.UserID = userId;
         var createdGuardian = await _guardianRepository.InsertAsync(guardian);
         return Ok(createdGuardian);
     }
