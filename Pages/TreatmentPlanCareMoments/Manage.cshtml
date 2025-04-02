@@ -22,13 +22,15 @@
                 <td>@item.CareMomentName</td> <!-- Show name instead of ID -->
                 <td>
                     <form method="post">
+                        <input type="hidden" name="TreatmentPlanID" value="@Model.TreatmentPlanID" />
                         <input type="hidden" name="careMomentId" value="@item.CareMomentID" />
-                        <input type="number" name="newOrder" value="@item.Order" class="form-control" style="width: 80px; display: inline;" />
+                        <input type="number" name="newOrder" value="@item.Order" class="form-control" style="width: 80px; display: inline;" required />
                         <button type="submit" asp-page-handler="UpdateOrder" class="btn btn-primary btn-sm">Update</button>
                     </form>
                 </td>
                 <td>
                     <form method="post">
+                        <input type="hidden" name="TreatmentPlanID" value="@Model.TreatmentPlanID" />
                         <input type="hidden" name="careMomentId" value="@item.CareMomentID" />
                         <button type="submit" asp-page-handler="Remove" class="btn btn-danger">Remove</button>
                     </form>
