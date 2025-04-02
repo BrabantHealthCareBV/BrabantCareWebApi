@@ -25,7 +25,7 @@ namespace BrabantCareWebApi.Repositories
                 {
                     await sqlConnection.ExecuteAsync(@"
                         INSERT INTO [Patients] (Id, UserID, FirstName, LastName, Birthdate, NextAppointmentDate, GuardianId, TreatmentPlanId, DoctorID) 
-                        VALUES (@Id, UserID, @FirstName, @LastName, @Birthdate, @NextAppointmentDate, @GuardianId, @TreatmentPlanId, @DoctorID)", patient);
+                        VALUES (@Id, @UserID, @FirstName, @LastName, @Birthdate, @NextAppointmentDate, @GuardianId, @TreatmentPlanId, @DoctorID)", patient);
                 }
                 logger.LogInformation("Successfully inserted patient with ID: {Id}", patient.ID);
                 return patient;
@@ -90,8 +90,9 @@ namespace BrabantCareWebApi.Repositories
                 {
                     await sqlConnection.ExecuteAsync(@"
                         UPDATE [Patients] SET 
+                        UserID = @UserID,
                         FirstName = @FirstName, 
-                        LastName = @LastName, 
+                        LastName = @LastName,
                         Birthdate = @Birthdate, 
                         NextAppointmentDate = @NextAppointmentDate, 
                         GuardianId = @GuardianId, 
