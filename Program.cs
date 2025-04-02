@@ -19,8 +19,12 @@ builder.Services.AddScoped<DoctorRepository>(provider =>
 {
     var logger = provider.GetRequiredService<ILogger<DoctorRepository>>(); // Get logger from DI container
     return new DoctorRepository(sqlConnectionString, logger); // Inject the logger into the repository
+}); 
+builder.Services.AddScoped<PatientRepository>(provider =>
+{
+    var logger = provider.GetRequiredService<ILogger<PatientRepository>>(); // Get logger from DI container
+    return new PatientRepository(sqlConnectionString, logger); // Inject the logger into the repository
 });
-builder.Services.AddScoped(_ => new PatientRepository(sqlConnectionString));
 builder.Services.AddScoped(_ => new GuardianRepository(sqlConnectionString)); 
 builder.Services.AddScoped<TreatmentPlanRepository>(provider =>
 {
