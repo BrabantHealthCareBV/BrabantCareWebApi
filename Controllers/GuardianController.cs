@@ -23,7 +23,11 @@ public class GuardianController : ControllerBase
         var userId = _authenticationService.GetCurrentAuthenticatedUserId();
         guardian.UserID = userId;
         var createdGuardian = await _guardianRepository.InsertAsync(guardian);
-        return Ok(createdGuardian);
+        if (createdGuardian == null)
+
+            return BadRequest(new { message = "Guardian Already exists for UserID." });
+        else
+            return Ok(createdGuardian);
     }
 
     [HttpGet]

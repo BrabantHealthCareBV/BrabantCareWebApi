@@ -20,7 +20,7 @@ namespace BrabantCareWebApi.Repositories
         {
             try
             {
-                _logger.LogInformation("Inserting TreatmentPlanCareMoment: {TreatmentPlanId}, {CareMomentId}", entity.TreatmentPlanID, entity.CareMomentID);
+                _logger.LogInformation("Inserting TreatmentPlanCareMoment: {TreatmentPlanId}, {CareMomentId}", entity.TreatmentPlanID);
 
                 using (var sqlConnection = new SqlConnection(sqlConnectionString))
                 {

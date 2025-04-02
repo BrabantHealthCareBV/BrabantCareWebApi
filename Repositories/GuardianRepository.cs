@@ -53,6 +53,17 @@ namespace BrabantCareWebApi.Repositories
             }
         }
 
+        public async Task<IEnumerable<Guardian>> ReadByUserAsync(string userId)
+        {
+            using (var sqlConnection = new SqlConnection(sqlConnectionString))
+            {
+
+                var guardians = await sqlConnection.QueryAsync<Guardian>("SELECT * FROM [Guardians] WHERE UserId = @UserId", new { UserId = userId });
+
+                return guardians;
+            }
+        }
+
         public async Task UpdateAsync(Guardian guardian)
         {
             using (var sqlConnection = new SqlConnection(sqlConnectionString))
