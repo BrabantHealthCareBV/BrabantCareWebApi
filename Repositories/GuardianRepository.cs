@@ -18,8 +18,20 @@ namespace BrabantCareWebApi.Repositories
             guardian.ID = Guid.NewGuid();
             using (var sqlConnection = new SqlConnection(sqlConnectionString))
             {
-                await sqlConnection.ExecuteAsync(
-                    "INSERT INTO [Guardians] (Id, FirstName, LastName) VALUES (@Id, @FirstName, @LastName)", guardian);
+                var existingGuardian = await sqlConnection.QuerySingleOrDefaultAsync<Guardian>(@"
+                    SELECT * FROM [Guardians] 
+                    WHERE UserID = @UserID AND FirstName = @FirstName AND LastName = @LastName",
+                    new { guardian.UserID, guardian.FirstName, guardian.LastName });
+
+                if (existingGuardian != null)
+                {
+                    return null; // Guardian already exists
+                }
+
+                await sqlConnection.ExecuteAsync(@"
+                    INSERT INTO [Guardians] (ID, UserID, FirstName, LastName)
+                    VALUES (@ID, @UserID, @FirstName, @LastName)", guardian);
+
                 return guardian;
             }
         }
