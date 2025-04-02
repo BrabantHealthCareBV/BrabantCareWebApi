@@ -23,6 +23,15 @@ namespace BrabantCareWebApi.Repositories
             {
                 using (var sqlConnection = new SqlConnection(sqlConnectionString))
                 {
+                    var existingGuardian = await sqlConnection.QuerySingleOrDefaultAsync<Guardian>(@"
+                    SELECT * FROM [Patients] 
+                    WHERE UserID = @UserID AND FirstName = @FirstName AND LastName = @LastName",
+                        new { patient.UserID, patient.FirstName, patient.LastName });
+
+                    if (existingGuardian != null)
+                    {
+                        return null; // Guardian already exists
+                    }
                     await sqlConnection.ExecuteAsync(@"
                         INSERT INTO [Patients] 
                         (ID, UserID, FirstName, LastName, GuardianID, TreatmentPlanID, DoctorID, Birthdate, NextAppointmentDate, GameState, Score) 

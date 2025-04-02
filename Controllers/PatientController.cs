@@ -79,8 +79,11 @@ public class PatientController : ControllerBase
             patient.UserID = userId;
 
             var createdPatient = await _patientRepository.InsertAsync(patient);
+            if (createdPatient == null)
 
-            return CreatedAtAction(nameof(GetPatientById), new { id = createdPatient.ID }, createdPatient);
+                return BadRequest(new { message = "Patient Already exists for UserID." });
+            else
+                return Ok(createdPatient);
         }
         catch (Exception ex)
         {
