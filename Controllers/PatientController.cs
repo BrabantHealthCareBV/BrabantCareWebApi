@@ -80,7 +80,6 @@ public class PatientController : ControllerBase
 
             var createdPatient = await _patientRepository.InsertAsync(patient);
 
-            // Return the created patient with the generated ID
             return CreatedAtAction(nameof(GetPatientById), new { id = createdPatient.ID }, createdPatient);
         }
         catch (Exception ex)

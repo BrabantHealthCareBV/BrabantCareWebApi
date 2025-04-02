@@ -24,8 +24,11 @@ namespace BrabantCareWebApi.Repositories
                 using (var sqlConnection = new SqlConnection(sqlConnectionString))
                 {
                     await sqlConnection.ExecuteAsync(@"
-                        INSERT INTO [Patients] (Id, UserID, FirstName, LastName, Birthdate, NextAppointmentDate, GuardianId, TreatmentPlanId, DoctorID) 
-                        VALUES (@Id, @UserID, @FirstName, @LastName, @Birthdate, @NextAppointmentDate, @GuardianId, @TreatmentPlanId, @DoctorID)", patient);
+                        INSERT INTO [Patients] 
+                        (ID, UserID, FirstName, LastName, GuardianID, TreatmentPlanID, DoctorID, Birthdate, NextAppointmentDate, GameState, Score) 
+                        VALUES 
+                        (@ID, @UserID, @FirstName, @LastName, @GuardianID, @TreatmentPlanID, @DoctorID, @Birthdate, @NextAppointmentDate, @GameState, @Score)", patient);
+
                 }
                 logger.LogInformation("Successfully inserted patient with ID: {Id}", patient.ID);
                 return patient;
@@ -91,14 +94,17 @@ namespace BrabantCareWebApi.Repositories
                     await sqlConnection.ExecuteAsync(@"
                         UPDATE [Patients] SET 
                         UserID = @UserID,
-                        FirstName = @FirstName, 
+                        FirstName = @FirstName,
                         LastName = @LastName,
-                        Birthdate = @Birthdate, 
-                        NextAppointmentDate = @NextAppointmentDate, 
-                        GuardianId = @GuardianId, 
-                        TreatmentPlanId = @TreatmentPlanId, 
-                        DoctorID = @DoctorID 
-                        WHERE Id = @Id", patient);
+                        GuardianID = @GuardianID,
+                        TreatmentPlanID = @TreatmentPlanID,
+                        DoctorID = @DoctorID,
+                        Birthdate = @Birthdate,
+                        NextAppointmentDate = @NextAppointmentDate,
+                        GameState = @GameState,
+                        Score = @Score
+                        WHERE ID = @ID", patient);
+
                 }
                 logger.LogInformation("Successfully updated patient with ID: {Id}", patient.ID);
             }
