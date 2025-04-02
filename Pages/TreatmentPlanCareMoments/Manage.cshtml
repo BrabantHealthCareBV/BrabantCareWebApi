@@ -19,8 +19,14 @@
         @foreach (var item in Model.LinkedCareMoments)
         {
             <tr>
-                <td>@item.CareMomentID</td>
-                <td>@item.Order</td>
+                <td>@item.CareMomentName</td> <!-- Show name instead of ID -->
+                <td>
+                    <form method="post">
+                        <input type="hidden" name="careMomentId" value="@item.CareMomentID" />
+                        <input type="number" name="newOrder" value="@item.Order" class="form-control" style="width: 80px; display: inline;" />
+                        <button type="submit" asp-page-handler="UpdateOrder" class="btn btn-primary btn-sm">Update</button>
+                    </form>
+                </td>
                 <td>
                     <form method="post">
                         <input type="hidden" name="careMomentId" value="@item.CareMomentID" />
@@ -48,4 +54,3 @@
 
     <button type="submit" asp-page-handler="Add" class="btn btn-success">Add Care Moment</button>
 </form>
-
