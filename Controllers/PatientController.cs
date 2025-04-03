@@ -113,23 +113,28 @@ public class PatientController : ControllerBase
     {
         try
         {
-            if (patient == null)
+            if (!ModelState.IsValid)
             {
-                return BadRequest(new { message = "Invalid patient data." });
+                return BadRequest(ModelState); // This will return the exact validation errors
             }
-            if (patient.ID == Guid.Empty)
-            {
-                patient.ID = id;
-            }
-            if (patient.UserID.IsNullOrEmpty())
-            {
-                patient.UserID = _authenticationService.GetCurrentAuthenticatedUserId();
-            }
+
 
             var existingPatient = await _patientRepository.ReadAsync(id);
             if (existingPatient == null)
             {
                 return NotFound(new { message = "Patient not found." });
+            }
+            if (patient.ID == Guid.Empty)
+            {
+                patient.ID = existingPatient.ID;
+            }
+            if (patient.UserID.IsNullOrEmpty())
+            {
+                patient.UserID = existingPatient.UserID;
+            }
+            if (patient.DoctorID == Guid.Empty)
+            {
+                patient.DoctorID = null;
             }
 
             await _patientRepository.UpdateAsync(patient);
