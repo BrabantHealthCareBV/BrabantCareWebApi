@@ -3,6 +3,7 @@ using BrabantCareWebApi.Repositories;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.IdentityModel.Tokens;
 [ApiController]
 [Route("api/patients")]
 public class PatientController : ControllerBase
@@ -115,6 +116,14 @@ public class PatientController : ControllerBase
             if (patient == null)
             {
                 return BadRequest(new { message = "Invalid patient data." });
+            }
+            if (patient.ID == Guid.Empty)
+            {
+                patient.ID = id;
+            }
+            if (patient.UserID.IsNullOrEmpty())
+            {
+                patient.UserID = _authenticationService.GetCurrentAuthenticatedUserId();
             }
 
             var existingPatient = await _patientRepository.ReadAsync(id);
