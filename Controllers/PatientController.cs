@@ -21,23 +21,6 @@ public class PatientController : ControllerBase
         _treatmentPlanRepository = treatmentPlanRepository;
         _authenticationService = authenticationService;
     }
-    public async Task<bool> DoesGuardianExistAsync(Guid guardianId)
-    {
-        var guardians = await _guardianRepository.ReadAsync();
-        return guardians.Any(g => g.ID == guardianId);
-    }
-
-    public async Task<bool> DoesDoctorExistAsync(Guid doctorId)
-    {
-        var doctors = await _doctorRepository.ReadAsync();
-        return doctors.Any(d => d.ID == doctorId);
-    }
-
-    public async Task<bool> DoesTreatmentPlanExistAsync(Guid treatmentPlanId)
-    {
-        var treatmentPlans = await _treatmentPlanRepository.ReadAsync();
-        return treatmentPlans.Any(tp => tp.ID == treatmentPlanId);
-    }
     [HttpPost]
     public async Task<IActionResult> AddPatient([FromBody] Patient patient)
     {
@@ -48,13 +31,13 @@ public class PatientController : ControllerBase
                 return BadRequest(new { message = "Invalid patient data." });
             }
 
-            var guardianExists = await DoesGuardianExistAsync(patient.GuardianID);
+            var guardianExists = await _guardianRepository.DoesGuardianExistAsync(patient.GuardianID);
             if (!guardianExists)
             {
                 return BadRequest(new { message = "Guardian does not exist. Please provide a valid GuardianID." });
             }
 
-            var treatmentPlanExists = await DoesTreatmentPlanExistAsync(patient.TreatmentPlanID);
+            var treatmentPlanExists = await _treatmentPlanRepository.DoesTreatmentPlanExistAsync(patient.TreatmentPlanID);
             if (!treatmentPlanExists)
             {
                 return BadRequest(new { message = "Treatment plan does not exist. Please provide a valid TreatmentPlanID." });
@@ -69,7 +52,7 @@ public class PatientController : ControllerBase
 
             if (patient.DoctorID.HasValue)
             {
-                var doctorExists = await DoesDoctorExistAsync(patient.DoctorID.Value);
+                var doctorExists = await _doctorRepository.DoesDoctorExistAsync(patient.DoctorID.Value);
                 if (!doctorExists)
                 {
                     return BadRequest(new { message = "Doctor does not exist. Please provide a valid DoctorID or leave it empty." });

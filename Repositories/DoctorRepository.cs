@@ -126,5 +126,10 @@ namespace BrabantCareWebApi.Repositories
                 throw;
             }
         }
+        public async Task<bool> DoesDoctorExistAsync(Guid doctorId)
+        {
+            var doctors = await ReadAsync();
+            return doctors.Any(d => d.ID == doctorId);
+        }
     }
 }
