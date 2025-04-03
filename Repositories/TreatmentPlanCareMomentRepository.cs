@@ -2,10 +2,11 @@
 using Microsoft.Data.SqlClient;
 using BrabantCareWebApi.Models;
 using Microsoft.Extensions.Logging;
+using BrabantCareWebApi.Interfaces;
 
 namespace BrabantCareWebApi.Repositories
 {
-    public class TreatmentPlanCareMomentRepository
+    public class TreatmentPlanCareMomentRepository : ITreatmentPlanCareMomentRepository<TreatmentPlanCareMoment>
     {
         private readonly string sqlConnectionString;
         private readonly ILogger<TreatmentPlanCareMomentRepository> _logger;

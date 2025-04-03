@@ -1,8 +1,9 @@
-﻿using BrabantCareWebApi.Models;
+﻿using BrabantCareWebApi.Interfaces;
+using BrabantCareWebApi.Models;
 using Dapper;
 using Microsoft.Data.SqlClient;
 
-public class UserRepository
+public class UserRepository : IUserRepository<User>
 {
     private readonly string _connectionString;
     private readonly ILogger<UserRepository> _logger;
