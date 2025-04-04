@@ -81,5 +81,11 @@ namespace BrabantCareWebApi.Repositories
                 await sqlConnection.ExecuteAsync("DELETE FROM [Guardians] WHERE Id = @Id", new { id });
             }
         }
+
+        public async Task<bool> DoesGuardianExistAsync(Guid guardianId)
+        {
+            var guardians = await ReadAsync();
+            return guardians.Any(g => g.ID == guardianId);
+        }
     }
 }

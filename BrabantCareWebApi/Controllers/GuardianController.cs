@@ -40,10 +40,18 @@ public class GuardianController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetGuardianById(Guid id)
     {
-        var guardian = await _guardianRepository.ReadAsync(id);
-        if (guardian == null) return NotFound(new { message = "Guardian not found." });
+        try
+        {
+            var guardian = await _guardianRepository.ReadAsync(id);
+            if (guardian == null)
+                return NotFound(new { message = "Guardian not found." });
 
-        return Ok(guardian);
+            return Ok(guardian);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "An error occurred while retrieving the guardian.", error = ex.Message });
+        }
     }
 
     [HttpPut("{id}")]
@@ -51,9 +59,10 @@ public class GuardianController : ControllerBase
     {
         var existingGuardian = await _guardianRepository.ReadAsync(id);
         if (existingGuardian == null) return NotFound(new { message = "Guardian not found." });
+        
+        await _guardianRepository.UpdateAsync(guardian); 
+        return Ok(guardian);
 
-        await _guardianRepository.UpdateAsync(guardian);
-        return Ok(new { message = $"Guardian {guardian.FirstName} {guardian.LastName} updated successfully." });
     }
 
     [HttpDelete("{id}")]
