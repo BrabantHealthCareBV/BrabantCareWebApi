@@ -9,6 +9,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th>ID</th>
             <th>Email</th>
             <th>Actions</th>
         </tr>
@@ -17,6 +18,7 @@
         @foreach (var user in Model.Users)
         {
             <tr>
+                <td>@user.Id</td>
                 <td>@user.Email</td>
                 <td>
                     <form method="post" asp-page-handler="Delete">
