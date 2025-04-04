@@ -114,9 +114,26 @@ public class PatientController : ControllerBase
     {
         try
         {
-            if (!ModelState.IsValid)
+            if (patient == null)
             {
-                return BadRequest(ModelState); // This will return the exact validation errors
+                return BadRequest(new { message = "Invalid patient data." });
+            }
+
+            var guardianExists = await _guardianRepository.DoesGuardianExistAsync(patient.guardianID);
+            if (!guardianExists)
+            {
+                return BadRequest(new { message = "Guardian does not exist. Please provide a valid GuardianID." });
+            }
+
+            var treatmentPlanExists = await _treatmentPlanRepository.DoesTreatmentPlanExistAsync(patient.treatmentPlanID);
+            if (!treatmentPlanExists)
+            {
+                return BadRequest(new { message = "Treatment plan does not exist. Please provide a valid TreatmentPlanID." });
+            }
+
+            if (patient.ID == Guid.Empty)
+            {
+                patient.ID = Guid.NewGuid();
             }
 
 
