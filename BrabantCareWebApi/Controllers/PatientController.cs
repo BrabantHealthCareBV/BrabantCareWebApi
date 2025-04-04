@@ -32,13 +32,13 @@ public class PatientController : ControllerBase
                 return BadRequest(new { message = "Invalid patient data." });
             }
 
-            var guardianExists = await _guardianRepository.DoesGuardianExistAsync(patient.GuardianID);
+            var guardianExists = await _guardianRepository.DoesGuardianExistAsync(patient.guardianID);
             if (!guardianExists)
             {
                 return BadRequest(new { message = "Guardian does not exist. Please provide a valid GuardianID." });
             }
 
-            var treatmentPlanExists = await _treatmentPlanRepository.DoesTreatmentPlanExistAsync(patient.TreatmentPlanID);
+            var treatmentPlanExists = await _treatmentPlanRepository.DoesTreatmentPlanExistAsync(patient.treatmentPlanID);
             if (!treatmentPlanExists)
             {
                 return BadRequest(new { message = "Treatment plan does not exist. Please provide a valid TreatmentPlanID." });
@@ -51,21 +51,22 @@ public class PatientController : ControllerBase
 
 
 
-            if (patient.DoctorID.HasValue)
+            if (patient.doctorID.HasValue)
             {
-                var doctorExists = await _doctorRepository.DoesDoctorExistAsync(patient.DoctorID.Value);
+                var doctorExists = await _doctorRepository.DoesDoctorExistAsync(patient.doctorID.Value);
                 if (!doctorExists)
                 {
                     return BadRequest(new { message = "Doctor does not exist. Please provide a valid DoctorID or leave it empty." });
                 }
             }
+           
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
             patient.UserID = userId;
 
             var createdPatient = await _patientRepository.InsertAsync(patient);
             if (createdPatient == null)
 
-                return BadRequest(new { message = "Patient Already exists for UserID." });
+                return NoContent();
             else
                 return Ok(createdPatient);
         }
@@ -132,9 +133,9 @@ public class PatientController : ControllerBase
             {
                 patient.UserID = existingPatient.UserID;
             }
-            if (patient.DoctorID == Guid.Empty)
+            if (patient.doctorID == Guid.Empty)
             {
-                patient.DoctorID = null;
+                patient.doctorID = null;
             }
 
             await _patientRepository.UpdateAsync(patient);

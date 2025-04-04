@@ -4,14 +4,14 @@ namespace BrabantCareWebApi.Models
     {
         public Guid ID { get; set; }
         public string? UserID { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public DateTime? Birthdate { get; set; } 
-        public DateTime? NextAppointmentDate { get; set; }
-        public Guid GuardianID { get; set; }
-        public Guid TreatmentPlanID { get; set; }
-        public Guid? DoctorID { get; set; }
-        public int GameState { get; set; }
-        public int Score { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public DateTime? birthdate { get; set; } 
+        public DateTime? nextAppointmentDate { get; set; }
+        public Guid guardianID { get; set; }
+        public Guid treatmentPlanID { get; set; }
+        public Guid? doctorID { get; set; }
+        public int gameState { get; set; }
+        public int score { get; set; }
     }
 }

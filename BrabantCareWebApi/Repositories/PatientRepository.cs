@@ -27,7 +27,7 @@ namespace BrabantCareWebApi.Repositories
                     var existingGuardian = await sqlConnection.QuerySingleOrDefaultAsync<Guardian>(@"
                     SELECT * FROM [Patients] 
                     WHERE UserID = @UserID AND FirstName = @FirstName AND LastName = @LastName",
-                        new { patient.UserID, patient.FirstName, patient.LastName });
+                        new { patient.UserID, patient.firstName, patient.lastName });
 
                     if (existingGuardian != null)
                     {

@@ -22,15 +22,15 @@ namespace WebAPITestsBrabant
             {
                 ID = Guid.NewGuid(),
                 UserID = "user123",
-                FirstName = "Jan",
-                LastName = "Janssen",
-                Birthdate = new DateTime(1992, 07, 21),
-                NextAppointmentDate = new DateTime(2025, 04, 03),
-                GuardianID = Guid.NewGuid(),
-                TreatmentPlanID = Guid.NewGuid(),
-                DoctorID = Guid.NewGuid(),
-                GameState = 1,
-                Score = 46
+                firstName = "Jan",
+                lastName = "Janssen",
+                birthdate = new DateTime(1992, 07, 21),
+                nextAppointmentDate = new DateTime(2025, 04, 03),
+                guardianID = Guid.NewGuid(),
+                treatmentPlanID = Guid.NewGuid(),
+                doctorID = Guid.NewGuid(),
+                gameState = 1,
+                score = 46
             };
         }
 
@@ -47,8 +47,8 @@ namespace WebAPITestsBrabant
             Assert.IsNotNull(result);
             Assert.AreEqual(_testPatient.ID, result.ID);
             Assert.AreEqual(_testPatient.UserID, result.UserID);
-            Assert.AreEqual(_testPatient.FirstName, result.FirstName);
-            Assert.AreEqual(_testPatient.LastName, result.LastName);
+            Assert.AreEqual(_testPatient.firstName, result.firstName);
+            Assert.AreEqual(_testPatient.lastName, result.lastName);
         }
 
         [TestMethod]
@@ -64,8 +64,8 @@ namespace WebAPITestsBrabant
             Assert.IsNotNull(result);
             Assert.AreEqual(_testPatient.ID, result.ID);
             Assert.AreEqual(_testPatient.UserID, result.UserID);
-            Assert.AreEqual(_testPatient.FirstName, result.FirstName);
-            Assert.AreEqual(_testPatient.LastName, result.LastName);
+            Assert.AreEqual(_testPatient.firstName, result.firstName);
+            Assert.AreEqual(_testPatient.lastName, result.lastName);
         }
 
         [TestMethod]
@@ -104,14 +104,14 @@ namespace WebAPITestsBrabant
         public async Task UpdateAsync_ShouldUpdatePatient()
         {
             // Arrange
-            _testPatient.FirstName = "Jane";
+            _testPatient.firstName = "Jane";
             _mockRepository.Setup(repo => repo.UpdateAsync(It.IsAny<Patient>())).Returns(Task.CompletedTask);
 
             // Act
             await _mockRepository.Object.UpdateAsync(_testPatient);
 
             // Assert
-            _mockRepository.Verify(repo => repo.UpdateAsync(It.Is<Patient>(p => p.FirstName == "Jane")), Times.Once);
+            _mockRepository.Verify(repo => repo.UpdateAsync(It.Is<Patient>(p => p.firstName == "Jane")), Times.Once);
         }
 
         [TestMethod]
