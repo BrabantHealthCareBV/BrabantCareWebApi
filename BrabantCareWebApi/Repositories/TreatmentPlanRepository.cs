@@ -1,11 +1,12 @@
-﻿using BrabantCareWebApi.Models;
+﻿using BrabantCareWebApi.Interfaces;
+using BrabantCareWebApi.Models;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using System.Numerics;
 
 namespace BrabantCareWebApi.Repositories
 {
-    public class TreatmentPlanRepository
+    public class TreatmentPlanRepository : ITreatmentPlanRepository<TreatmentPlan>
     {
         private readonly string sqlConnectionString;
 

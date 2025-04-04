@@ -2,10 +2,11 @@ using Dapper;
 using Microsoft.Data.SqlClient;
 using BrabantCareWebApi.Models;
 using Microsoft.Extensions.Logging;
+using BrabantCareWebApi.Interfaces;
 
 namespace BrabantCareWebApi.Repositories
 {
-    public class DoctorRepository
+    public class DoctorRepository : IDoctorRepository<Doctor>
     {
         private readonly string sqlConnectionString;
         private readonly ILogger<DoctorRepository> _logger;

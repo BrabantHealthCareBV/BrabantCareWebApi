@@ -1,10 +1,11 @@
-﻿using BrabantCareWebApi.Models;
+﻿using BrabantCareWebApi.Interfaces;
+using BrabantCareWebApi.Models;
 using Dapper;
 using Microsoft.Data.SqlClient;
 
 namespace BrabantCareWebApi.Repositories
 {
-    public class GuardianRepository
+    public class GuardianRepository : IGuardianRepository<Guardian>
     {
         private readonly string sqlConnectionString;
 
