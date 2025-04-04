@@ -27,6 +27,7 @@ public class PatientController : ControllerBase
     {
         try
         {
+            Console.WriteLine($"add patient with id: {patient.ID}");
             if (patient == null)
             {
                 return BadRequest(new { message = "Invalid patient data." });
@@ -44,7 +45,7 @@ public class PatientController : ControllerBase
                 return BadRequest(new { message = "Treatment plan does not exist. Please provide a valid TreatmentPlanID." });
             }
 
-            if (patient.ID == Guid.Empty)
+            if (patient.ID == Guid.Empty || patient.ID == null)
             {
                 patient.ID = Guid.NewGuid();
             }
