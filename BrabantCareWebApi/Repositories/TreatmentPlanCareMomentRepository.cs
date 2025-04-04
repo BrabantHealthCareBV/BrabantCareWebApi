@@ -21,12 +21,26 @@ namespace BrabantCareWebApi.Repositories
         {
             try
             {
-                _logger.LogInformation("Inserting TreatmentPlanCareMoment: {TreatmentPlanId}, {CareMomentId}", entity.TreatmentPlanID);
+                _logger.LogInformation("Inserting TreatmentPlanCareMoment: {TreatmentPlanId}, {CareMomentId}", entity.TreatmentPlanID, entity.CareMomentID);
 
                 using (var sqlConnection = new SqlConnection(sqlConnectionString))
                 {
+                    // Check if the TreatmentPlanID and CareMomentID combination already exists
+                    var existingRecord = await sqlConnection.QueryFirstOrDefaultAsync<int>(
+                        "SELECT COUNT(*) FROM TreatmentPlan_CareMoments WHERE TreatmentPlanID = @TreatmentPlanID AND CareMomentID = @CareMomentID",
+                        new { TreatmentPlanID = entity.TreatmentPlanID, CareMomentID = entity.CareMomentID });
+
+                    if (existingRecord > 0)
+                    {
+                        // Handle the case where the record already exists
+                        _logger.LogWarning("Duplicate TreatmentPlanCareMoment: {TreatmentPlanId}, {CareMomentId} - Skipping insert", entity.TreatmentPlanID, entity.CareMomentID);
+                        return; // or decide to update, log, etc.
+                    }
+
+                    // Proceed with insertion if no duplicate found
                     await sqlConnection.ExecuteAsync(
-                        "INSERT INTO TreatmentPlan_CareMoments (TreatmentPlanID, CareMomentID, [Order]) VALUES (@TreatmentPlanID, @CareMomentID, @Order)", entity);
+                        "INSERT INTO TreatmentPlan_CareMoments (TreatmentPlanID, CareMomentID, [Order]) VALUES (@TreatmentPlanID, @CareMomentID, @Order)",
+                        entity);
                 }
             }
             catch (Exception ex)
