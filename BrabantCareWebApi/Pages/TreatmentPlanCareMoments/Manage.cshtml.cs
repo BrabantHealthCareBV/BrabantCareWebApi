@@ -56,11 +56,11 @@ public class ManageModel : PageModel
         return RedirectToPage(new { TreatmentPlanID });
     }
 
-    public async Task<IActionResult> OnPostUpdateOrderAsync(Guid TreatmentPlanID, Guid careMomentId, int newOrder)
+    public async Task<IActionResult> OnPostUpdateOrderAsync(Guid treatmentPlanID, Guid careMomentId, int newOrder)
     {
         var updatedEntity = new TreatmentPlanCareMoment
         {
-            TreatmentPlanID = TreatmentPlanID,
+            TreatmentPlanID = treatmentPlanID,
             CareMomentID = careMomentId,
             Order = newOrder
         };
