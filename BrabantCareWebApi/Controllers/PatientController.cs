@@ -52,7 +52,7 @@ public class PatientController : ControllerBase
 
 
 
-            if (patient.doctorID.HasValue)
+            if (patient.doctorID != Guid.Empty && patient.doctorID != null)
             {
                 var doctorExists = await _doctorRepository.DoesDoctorExistAsync(patient.doctorID.Value);
                 if (!doctorExists)
