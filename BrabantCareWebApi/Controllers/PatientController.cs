@@ -60,7 +60,11 @@ public class PatientController : ControllerBase
                     return BadRequest(new { message = "Doctor does not exist. Please provide a valid DoctorID or leave it empty." });
                 }
             }
-           
+            else
+            {
+                patient.doctorID = _doctorRepository.ReadAsync().Result.First().ID;
+            }
+
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
             patient.UserID = userId;
 
