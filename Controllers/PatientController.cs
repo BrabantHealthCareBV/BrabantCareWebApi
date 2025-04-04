@@ -138,7 +138,7 @@ public class PatientController : ControllerBase
             }
 
             await _patientRepository.UpdateAsync(patient);
-            return Ok(new { message = $"Patient {patient.FirstName} {patient.LastName} updated successfully." });
+            return Ok(patient);
         }
         catch (Exception ex)
         {

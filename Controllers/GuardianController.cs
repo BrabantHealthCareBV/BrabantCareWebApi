@@ -60,8 +60,9 @@ public class GuardianController : ControllerBase
         var existingGuardian = await _guardianRepository.ReadAsync(id);
         if (existingGuardian == null) return NotFound(new { message = "Guardian not found." });
         
-        await _guardianRepository.UpdateAsync(guardian);
-        return Ok(new { message = $"Guardian {guardian.FirstName} {guardian.LastName} updated successfully." });
+        await _guardianRepository.UpdateAsync(guardian); 
+        return Ok(guardian);
+
     }
 
     [HttpDelete("{id}")]
