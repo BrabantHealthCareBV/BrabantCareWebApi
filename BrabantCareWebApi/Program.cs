@@ -58,6 +58,10 @@ builder.Services.AddAuthentication(options =>
 })
 .AddCookie("AdminScheme", options =>
 {
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+    
+    options.SlidingExpiration = true;
+
     options.LoginPath = "/Admin/Login";
     options.AccessDeniedPath = "/Admin/Denied";
     options.Cookie.Name = "AdminAuth";
