@@ -62,6 +62,11 @@ builder.Services.AddAuthentication(options =>
     
     options.SlidingExpiration = true;
 
+    options.Events.OnSigningOut = context =>
+    {
+        context.HttpContext.Response.Cookies.Delete("AdminScheme");  // Delete the cookie on sign-out
+        return Task.CompletedTask;
+    };
     options.LoginPath = "/Admin/Login";
     options.AccessDeniedPath = "/Admin/Denied";
     options.Cookie.Name = "AdminAuth";
