@@ -1,4 +1,5 @@
 using BrabantCareWebApi.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -136,8 +137,16 @@ app.MapGroup("/account")
 .MapIdentityApi<IdentityUser>();
 
 app.MapControllers()
-    .RequireAuthorization();
+   .RequireAuthorization(new AuthorizeAttribute
+   {
+       AuthenticationSchemes = "Bearer"
+   });
 
-app.MapRazorPages();
+app.MapRazorPages()
+   .RequireAuthorization(new AuthorizeAttribute
+   {
+       AuthenticationSchemes = "AdminScheme"
+   });
+
 
 app.Run();
