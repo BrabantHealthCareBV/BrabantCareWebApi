@@ -63,7 +63,7 @@ builder.Services.AddRazorPages(options =>
 
 builder.Services.AddAuthentication(options =>
 {
-    options.DefaultScheme = "Bearer"; // default for API
+    options.DefaultScheme = "BearerToken";
 })
 .AddCookie("AdminScheme", options =>
 {
@@ -139,7 +139,7 @@ app.MapGroup("/account")
 app.MapControllers()
    .RequireAuthorization(new AuthorizeAttribute
    {
-       AuthenticationSchemes = "Bearer"
+       AuthenticationSchemes = "BearerToken"
    });
 
 app.MapRazorPages()
