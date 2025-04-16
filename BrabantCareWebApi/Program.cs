@@ -6,12 +6,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<IAuthenticationService, AspNetIdentityAuthenticationService>();
 
-builder.Services.AddAuthorization();
+//builder.Services.AddAuthorization();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+#region database
 var sqlConnectionString = builder.Configuration.GetValue<string>("SqlConnectionString");
 //var sqlConnectionString = builder.Configuration["SqlConnectionString"];
 builder.Services.AddScoped<DoctorRepository>(provider =>
@@ -48,35 +49,62 @@ builder.Services.AddLogging(logging =>
     logging.AddConsole();  // Log to the console
     logging.AddDebug();    // Log to the debug output
 });
+#endregion
+
+
+
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizeFolder("/Admin", "AdminPolicy");
+    options.Conventions.AllowAnonymousToPage("/Admin/Login");
+});
 
 
 builder.Services.AddAuthentication(options =>
 {
-    options.DefaultScheme = "AdminScheme";
-    options.DefaultAuthenticateScheme = "AdminScheme";
-    options.DefaultChallengeScheme = "AdminScheme";
+    options.DefaultScheme = "Bearer"; // default for API
 })
 .AddCookie("AdminScheme", options =>
 {
-    options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
-    
-    options.SlidingExpiration = true;
-
-    options.Events.OnSigningOut = context =>
-    {
-        context.HttpContext.Response.Cookies.Delete("AdminScheme");  // Delete the cookie on sign-out
-        return Task.CompletedTask;
-    };
     options.LoginPath = "/Admin/Login";
     options.AccessDeniedPath = "/Admin/Denied";
     options.Cookie.Name = "AdminAuth";
-});
 
-builder.Services.AddRazorPages(options =>
+    // Only redirect for /admin
+    options.Events.OnRedirectToLogin = context =>
+    {
+        if (context.Request.Path.StartsWithSegments("/admin", StringComparison.OrdinalIgnoreCase))
+        {
+            context.Response.Redirect(context.RedirectUri);
+        }
+        else
+        {
+            context.Response.StatusCode = 401;
+        }
+        return Task.CompletedTask;
+    };
+
+    options.Events.OnRedirectToAccessDenied = context =>
+    {
+        if (context.Request.Path.StartsWithSegments("/admin", StringComparison.OrdinalIgnoreCase))
+        {
+            context.Response.Redirect(context.RedirectUri);
+        }
+        else
+        {
+            context.Response.StatusCode = 403;
+        }
+        return Task.CompletedTask;
+    };
+})
+.AddBearerToken(); // This handles the [Authorize] for API with bearer tokens
+
+builder.Services.AddAuthorization(options =>
 {
-    options.Conventions.AuthorizeFolder("/"); 
-    // Optional: allow anonymous access to the login page
-    options.Conventions.AllowAnonymousToPage("/Admin/Login");
+    options.AddPolicy("AdminPolicy", policy =>
+    {
+        policy.RequireAuthenticatedUser(); // You can add more rules like roles if needed
+    });
 });
 
 
@@ -109,6 +137,7 @@ app.MapGroup("/account")
 
 app.MapControllers()
     .RequireAuthorization();
+
 app.MapRazorPages();
 
 app.Run();
