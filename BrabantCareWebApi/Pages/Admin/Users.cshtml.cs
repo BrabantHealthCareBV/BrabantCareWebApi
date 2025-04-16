@@ -1,8 +1,6 @@
-using BrabantCareWebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using BrabantCareWebApi.Models;
 
 public class UsersModel : PageModel
 {

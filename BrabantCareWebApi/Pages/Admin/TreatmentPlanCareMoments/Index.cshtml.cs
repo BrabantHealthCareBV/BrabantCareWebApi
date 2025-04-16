@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using BrabantCareWebApi.Repositories;
 using BrabantCareWebApi.Models;
 
+namespace BrabantCareWebApi.Pages.TreatmentPlanCareMoments;
 public class IndexModel : PageModel
 {
     private readonly TreatmentPlanRepository _treatmentPlanRepo;
