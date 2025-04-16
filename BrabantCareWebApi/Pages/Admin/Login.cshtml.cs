@@ -31,7 +31,7 @@ public class LoginModel : PageModel
 
             await HttpContext.SignInAsync("AdminScheme", principal);
 
-            return RedirectToPage("/Users"); 
+            return RedirectToPage("/Admin/Users"); 
         }
 
         ErrorMessage = "Invalid credentials";
