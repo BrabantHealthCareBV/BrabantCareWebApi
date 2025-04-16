@@ -63,7 +63,7 @@ builder.Services.AddRazorPages(options =>
 
 builder.Services.AddAuthentication(options =>
 {
-    options.DefaultScheme = "BearerToken";
+    //options.DefaultScheme = "BearerToken";
 })
 .AddCookie("AdminScheme", options =>
 {
@@ -71,7 +71,6 @@ builder.Services.AddAuthentication(options =>
     options.AccessDeniedPath = "/Admin/Denied";
     options.Cookie.Name = "AdminAuth";
 
-    // Only redirect for /admin
     options.Events.OnRedirectToLogin = context =>
     {
         if (context.Request.Path.StartsWithSegments("/admin", StringComparison.OrdinalIgnoreCase))
@@ -137,10 +136,7 @@ app.MapGroup("/account")
 .MapIdentityApi<IdentityUser>();
 
 app.MapControllers()
-   .RequireAuthorization(new AuthorizeAttribute
-   {
-       AuthenticationSchemes = "BearerToken"
-   });
+   .RequireAuthorization();
 
 app.MapRazorPages()
    .RequireAuthorization(new AuthorizeAttribute
